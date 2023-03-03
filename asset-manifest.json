@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/dzaja-projekat/static/css/main.8f0e9928.chunk.css",
+    "main.js": "/dzaja-projekat/static/js/main.e2dd2ef0.chunk.js",
+    "main.js.map": "/dzaja-projekat/static/js/main.e2dd2ef0.chunk.js.map",
+    "runtime-main.js": "/dzaja-projekat/static/js/runtime-main.e869a944.js",
+    "runtime-main.js.map": "/dzaja-projekat/static/js/runtime-main.e869a944.js.map",
+    "static/css/2.dd5303ad.chunk.css": "/dzaja-projekat/static/css/2.dd5303ad.chunk.css",
+    "static/js/2.ac1ce937.chunk.js": "/dzaja-projekat/static/js/2.ac1ce937.chunk.js",
+    "static/js/2.ac1ce937.chunk.js.map": "/dzaja-projekat/static/js/2.ac1ce937.chunk.js.map",
+    "static/css/3.39f38b92.chunk.css": "/dzaja-projekat/static/css/3.39f38b92.chunk.css",
+    "static/js/3.2eabfa89.chunk.js": "/dzaja-projekat/static/js/3.2eabfa89.chunk.js",
+    "static/js/3.2eabfa89.chunk.js.map": "/dzaja-projekat/static/js/3.2eabfa89.chunk.js.map",
+    "static/js/4.23ed527d.chunk.js": "/dzaja-projekat/static/js/4.23ed527d.chunk.js",
+    "static/js/4.23ed527d.chunk.js.map": "/dzaja-projekat/static/js/4.23ed527d.chunk.js.map",
+    "static/css/5.d385b52f.chunk.css": "/dzaja-projekat/static/css/5.d385b52f.chunk.css",
+    "static/js/5.5ea521b8.chunk.js": "/dzaja-projekat/static/js/5.5ea521b8.chunk.js",
+    "static/js/5.5ea521b8.chunk.js.map": "/dzaja-projekat/static/js/5.5ea521b8.chunk.js.map",
+    "static/js/6.85d628dc.chunk.js": "/dzaja-projekat/static/js/6.85d628dc.chunk.js",
+    "static/js/6.85d628dc.chunk.js.map": "/dzaja-projekat/static/js/6.85d628dc.chunk.js.map",
+    "index.html": "/dzaja-projekat/index.html",
+    "static/css/2.dd5303ad.chunk.css.map": "/dzaja-projekat/static/css/2.dd5303ad.chunk.css.map",
+    "static/css/3.39f38b92.chunk.css.map": "/dzaja-projekat/static/css/3.39f38b92.chunk.css.map",
+    "static/css/5.d385b52f.chunk.css.map": "/dzaja-projekat/static/css/5.d385b52f.chunk.css.map",
+    "static/css/main.8f0e9928.chunk.css.map": "/dzaja-projekat/static/css/main.8f0e9928.chunk.css.map",
+    "static/js/2.ac1ce937.chunk.js.LICENSE.txt": "/dzaja-projekat/static/js/2.ac1ce937.chunk.js.LICENSE.txt",
+    "static/js/4.23ed527d.chunk.js.LICENSE.txt": "/dzaja-projekat/static/js/4.23ed527d.chunk.js.LICENSE.txt",
+    "static/media/logo.47ec072c.svg": "/dzaja-projekat/static/media/logo.47ec072c.svg",
+    "static/media/profile.5f558e0f.png": "/dzaja-projekat/static/media/profile.5f558e0f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e869a944.js",
+    "static/css/2.dd5303ad.chunk.css",
+    "static/js/2.ac1ce937.chunk.js",
+    "static/css/main.8f0e9928.chunk.css",
+    "static/js/main.e2dd2ef0.chunk.js"
+  ]
+}
