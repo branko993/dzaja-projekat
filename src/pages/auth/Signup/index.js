@@ -14,7 +14,7 @@ const customTests = {
   ...tests,
   fullName: {
     test: tests.name.test,
-    error: 'Please input full name',
+    error: 'Унесите пуно име',
   },
 }
 
@@ -77,17 +77,17 @@ const Signup = () => {
   return (
     <div className={styles.root}>
       {resErr && <ErrorBox>{resErr}</ErrorBox>}
-      <h2 className={styles.title}>Signup</h2>
+      <h2 className={styles.title}>Регистрација</h2>
       <Input
-        label="Full Name"
+        label="Пуно Име"
         name="fullName"
-        placeholder="John Doe"
+        placeholder="Петар Перић"
         value={input.fullName}
         onChange={handleOnChange}
         error={error.fullName}
       />
       <Input
-        label="Email"
+        label="Е-адреса"
         name="email"
         placeholder="email@example.com"
         value={input.email}
@@ -96,7 +96,7 @@ const Signup = () => {
       />
       <Input
         type="password"
-        label="Password"
+        label="Лозинка"
         name="password"
         placeholder="password1234"
         value={input.password}
@@ -105,7 +105,7 @@ const Signup = () => {
       />
       <Input
         type="password"
-        label="Confirm Password"
+        label="Понови лозинку"
         name="confirmPassword"
         placeholder="password1234"
         value={input.confirmPassword}
@@ -114,24 +114,24 @@ const Signup = () => {
       />
       <br />
       <Button
-        label="Signup"
+        label="Региструј се"
         className={`btn-black-fill ${styles.submitButton}`}
         onClick={handleSubmit}
         isLoading={isLoading}
       />
       <div className={styles.footerContainer}>
         <div className={styles.textContainer}>
-          You have account?{' '}
+          Имате налог?{' '}
           <Button
-            label="Log in"
+            label="Пријави се"
             className={styles.linkButton}
             onClick={() => history.push(path.login)}
           />
         </div>
         <div className={styles.textContainer}>
-          Forget{' '}
+          Заборавили сте{' '}
           <Button
-            label="Password"
+            label="лозинку"
             className={styles.linkButton}
             onClick={() => history.push(path.resetPassword)}
           />

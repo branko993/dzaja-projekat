@@ -11,14 +11,12 @@ const Auth = () => (
   <div className={styles.root}>
     <div className={styles.leftContainer}>
       <img src={images.logo} className={styles.logo} alt="logo" />
-      <h1 className={styles.header}>👋 React Firebase Boilerplate</h1>
-      <p className={styles.title}>What’s includes?</p>
+      <h1 className={styles.header}>👋Добро нам дошли</h1>
+      <p className={styles.title}>Шта можете са нама?</p>
       <p className={styles.description}>
-        Firebase Authentication | Firebase Hosting | Firestore | Firebase
-        Storage | Storybook | Prettier | Eslint | Jest | Bundle Analizer | Redux
-        | React Router Dom ...and more!
+        Апликација за праћење прихода и расхода за ваш бизнис!
       </p>
-      <p className={styles.prompt}>Try it and check how it works 👉</p>
+      <p className={styles.prompt}>Региструј се и испробај 👉</p>
     </div>
     <div className={styles.rightContainer}>
       <Switch>

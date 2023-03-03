@@ -56,9 +56,9 @@ const ResetPassword = () => {
   return (
     <div className={styles.root}>
       {resErr && <ErrorBox>{resErr}</ErrorBox>}
-      <h2 className={styles.title}>Reset Password</h2>
+      <h2 className={styles.title}>Ресетуј лозинку</h2>
       <Input
-        label="Email"
+        label="Е-адреса"
         name="email"
         placeholder="email@example.com"
         value={input.email}
@@ -67,16 +67,16 @@ const ResetPassword = () => {
       />
       <br />
       <Button
-        label="Reset Password"
+        label="Ресетуј"
         className={`btn-black-fill ${styles.submitButton}`}
         onClick={handleSubmit}
         isLoading={isLoading}
       />
       <div className={styles.footerContainer}>
         <div className={styles.textContainer}>
-          Back to{' '}
+          Назад на{' '}
           <Button
-            label="Log in"
+            label="пријаву"
             className={styles.linkButton}
             onClick={() => history.push(path.login)}
           />
