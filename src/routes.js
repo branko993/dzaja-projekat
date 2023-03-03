@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { actions } from 'slices/app.slice'
 import { path } from 'utils/const'
 import Fallback from 'components/Fallback'
@@ -26,7 +26,7 @@ function Router() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Suspense fallback={<Fallback />}>
         {!loggedIn ? (
           <Switch>
@@ -44,7 +44,7 @@ function Router() {
           </Switch>
         )}
       </Suspense>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
