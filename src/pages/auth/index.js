@@ -11,6 +11,7 @@ const Auth = () => (
   <div className={styles.root}>
     <div className={styles.leftContainer}>
       <img src={images.logo} className={styles.logo} alt="logo" />
+      <img src={images.logoNoBackground} className={styles.logo} alt="logo" />
       <h1 className={styles.header}>👋Добро нам дошли</h1>
       <p className={styles.title}>Шта можете са нама?</p>
       <p className={styles.description}>
