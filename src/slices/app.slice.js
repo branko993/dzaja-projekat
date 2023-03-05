@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { firestore, auth } from 'utils/firebase'
+import { v4 as uuidv4 } from 'uuid'
 
 // ------------------------------------
 // State
@@ -64,42 +65,48 @@ export const authenticate = () => (dispatch) => {
   })
 }
 
-const signup = ({ fullName, email, password }) => () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      // create user
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password,
-      )
+const signup =
+  ({ fullName, email, password }) =>
+  () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        // create user
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password,
+        )
 
-      // send confirmation email
-      await user.sendEmailVerification()
+        // send confirmation email
+        await user.sendEmailVerification()
 
-      // store user info in firestore
-      await firestore.collection('users').doc(user.uid).set({
-        fullName,
-        email,
-      })
+        // store user info in firestore
+        await firestore.collection('users').doc(user.uid).set({
+          id: uuidv4(),
+          fullName,
+          email,
+        })
 
-      resolve(user)
-    } catch (err) {
-      reject(err)
-    }
-  })
+        resolve(user)
+      } catch (err) {
+        reject(err)
+      }
+    })
 
-const login = ({ email, password }) => (dispatch) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const { user } = await auth.signInWithEmailAndPassword(email, password)
-      if (!user) reject(new Error('Failed to login. please try it again later'))
-      if (!user.emailVerified) await user.sendEmailVerification()
-      dispatch(authenticate())
-      resolve(user)
-    } catch (err) {
-      reject(err)
-    }
-  })
+const login =
+  ({ email, password }) =>
+  (dispatch) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const { user } = await auth.signInWithEmailAndPassword(email, password)
+        if (!user)
+          reject(new Error('Failed to login. please try it again later'))
+        if (!user.emailVerified) await user.sendEmailVerification()
+        dispatch(authenticate())
+        resolve(user)
+      } catch (err) {
+        reject(err)
+      }
+    })
 
 const logout = () => (dispatch) =>
   new Promise(async (resolve, reject) => {
