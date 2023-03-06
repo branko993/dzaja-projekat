@@ -9,6 +9,6 @@ export const path = {
 
 export const dashboardPath = {
   greeting: '/dashboard/greeting',
-  supplier: '/dashboard/supplier',
+  suppliers: '/dashboard/suppliers',
   customers: '/dashboard/customers',
 }

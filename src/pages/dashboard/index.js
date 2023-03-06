@@ -9,7 +9,7 @@ import Button from 'components/Button'
 import { images } from 'theme'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
-import Supplier from './supplier'
+import Suppliers from './suppliers'
 import Customers from './customers'
 
 const Dashboard = () => {
@@ -71,9 +71,9 @@ const Dashboard = () => {
             }
           />
         </Link>
-        <Link to={dashboardPath.supplier}>
+        <Link to={dashboardPath.suppliers}>
           <Button
-            label="Supplier"
+            label="Suppliers"
             className={
               isMobile
                 ? 'btn-black-square-fill btn-block'
@@ -98,8 +98,8 @@ const Dashboard = () => {
           <Route path={dashboardPath.greeting}>
             <Greeting me={me} toggleDrawer={toggleDrawer} />
           </Route>
-          <Route path={dashboardPath.supplier}>
-            <Supplier />
+          <Route path={dashboardPath.suppliers}>
+            <Suppliers />
           </Route>
           <Route path={dashboardPath.customers}>
             <Customers />
