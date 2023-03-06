@@ -4,6 +4,10 @@
   @include button-fill($dark-gray);
 }
 
+.btn-black-square-fill {
+  @include button-fill-square($dark-gray);
+}
+
 .btn-pink-fill {
   @include button-fill($pink);
 }
@@ -14,6 +18,10 @@
 
 .btn-black-outline {
   @include button-outline($dark-gray);
+}
+
+.btn-black-no-border {
+  @include button-no-border($dark-gray);
 }
 
 .btn-purple-outline {

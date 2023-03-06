@@ -1,8 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from 'app'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'primereact/resources/themes/lara-light-indigo/theme.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
 import 'theme/reset.scss'
+import 'react-modern-drawer/dist/index.css'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(

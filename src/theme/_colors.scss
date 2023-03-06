@@ -17,6 +17,9 @@ $gray: #cacaca;
 $dark-gray: #333a41;
 $light-gray: #1e232b;
 
+//white
+$white: #fff;
+
 // blue
 $light-blue: #d2e2fa;
 
@@ -37,4 +40,5 @@ $gradient-pink-purple: linear-gradient(125.07deg, $pink 0%, $purple 66.18%);
   dark-gray: $dark-gray;
   light-gray: $light-gray;
   light-blue: $light-blue;
+  white: $white;
 }
