@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/finansijer/static/css/main.8a10e0c8.chunk.css",
-    "main.js": "/finansijer/static/js/main.d85d40ca.chunk.js",
-    "main.js.map": "/finansijer/static/js/main.d85d40ca.chunk.js.map",
-    "runtime-main.js": "/finansijer/static/js/runtime-main.daae7d54.js",
-    "runtime-main.js.map": "/finansijer/static/js/runtime-main.daae7d54.js.map",
+    "main.js": "/finansijer/static/js/main.a9a8ce87.chunk.js",
+    "main.js.map": "/finansijer/static/js/main.a9a8ce87.chunk.js.map",
+    "runtime-main.js": "/finansijer/static/js/runtime-main.7f3f385a.js",
+    "runtime-main.js.map": "/finansijer/static/js/runtime-main.7f3f385a.js.map",
     "static/css/2.a6e85c8a.chunk.css": "/finansijer/static/css/2.a6e85c8a.chunk.css",
     "static/js/2.cb487656.chunk.js": "/finansijer/static/js/2.cb487656.chunk.js",
     "static/js/2.cb487656.chunk.js.map": "/finansijer/static/js/2.cb487656.chunk.js.map",
     "static/css/3.dbedfec2.chunk.css": "/finansijer/static/css/3.dbedfec2.chunk.css",
-    "static/js/3.0c6af174.chunk.js": "/finansijer/static/js/3.0c6af174.chunk.js",
-    "static/js/3.0c6af174.chunk.js.map": "/finansijer/static/js/3.0c6af174.chunk.js.map",
+    "static/js/3.5607c6f1.chunk.js": "/finansijer/static/js/3.5607c6f1.chunk.js",
+    "static/js/3.5607c6f1.chunk.js.map": "/finansijer/static/js/3.5607c6f1.chunk.js.map",
     "static/js/4.76a6b24b.chunk.js": "/finansijer/static/js/4.76a6b24b.chunk.js",
     "static/js/4.76a6b24b.chunk.js.map": "/finansijer/static/js/4.76a6b24b.chunk.js.map",
-    "static/css/5.01b762f2.chunk.css": "/finansijer/static/css/5.01b762f2.chunk.css",
-    "static/js/5.f05a90ff.chunk.js": "/finansijer/static/js/5.f05a90ff.chunk.js",
-    "static/js/5.f05a90ff.chunk.js.map": "/finansijer/static/js/5.f05a90ff.chunk.js.map",
+    "static/css/5.750e11b4.chunk.css": "/finansijer/static/css/5.750e11b4.chunk.css",
+    "static/js/5.f6fe3268.chunk.js": "/finansijer/static/js/5.f6fe3268.chunk.js",
+    "static/js/5.f6fe3268.chunk.js.map": "/finansijer/static/js/5.f6fe3268.chunk.js.map",
     "static/js/6.4aa4ff08.chunk.js": "/finansijer/static/js/6.4aa4ff08.chunk.js",
     "static/js/6.4aa4ff08.chunk.js.map": "/finansijer/static/js/6.4aa4ff08.chunk.js.map",
     "static/js/7.cbc46737.chunk.js": "/finansijer/static/js/7.cbc46737.chunk.js",
@@ -23,7 +23,7 @@
     "index.html": "/finansijer/index.html",
     "static/css/2.a6e85c8a.chunk.css.map": "/finansijer/static/css/2.a6e85c8a.chunk.css.map",
     "static/css/3.dbedfec2.chunk.css.map": "/finansijer/static/css/3.dbedfec2.chunk.css.map",
-    "static/css/5.01b762f2.chunk.css.map": "/finansijer/static/css/5.01b762f2.chunk.css.map",
+    "static/css/5.750e11b4.chunk.css.map": "/finansijer/static/css/5.750e11b4.chunk.css.map",
     "static/css/main.8a10e0c8.chunk.css.map": "/finansijer/static/css/main.8a10e0c8.chunk.css.map",
     "static/js/2.cb487656.chunk.js.LICENSE.txt": "/finansijer/static/js/2.cb487656.chunk.js.LICENSE.txt",
     "static/js/4.76a6b24b.chunk.js.LICENSE.txt": "/finansijer/static/js/4.76a6b24b.chunk.js.LICENSE.txt",
@@ -34,10 +34,10 @@
     "static/media/profile.5f558e0f.png": "/finansijer/static/media/profile.5f558e0f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.daae7d54.js",
+    "static/js/runtime-main.7f3f385a.js",
     "static/css/2.a6e85c8a.chunk.css",
     "static/js/2.cb487656.chunk.js",
     "static/css/main.8a10e0c8.chunk.css",
-    "static/js/main.d85d40ca.chunk.js"
+    "static/js/main.a9a8ce87.chunk.js"
   ]
 }
