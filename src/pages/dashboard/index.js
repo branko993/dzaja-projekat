@@ -9,6 +9,8 @@ import Button from 'components/Button'
 import { images } from 'theme'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
+import Supplier from './supplier'
+import Customers from './customers'
 
 const Dashboard = () => {
   const { me } = useSelector((state) => state.app)
@@ -59,9 +61,9 @@ const Dashboard = () => {
         enableOverlay={false}
       >
         {renderLogo()}
-        <Link to="messages">
+        <Link to={dashboardPath.greeting}>
           <Button
-            label="Messages"
+            label="Home"
             className={
               isMobile
                 ? 'btn-black-square-fill btn-block mt-5'
@@ -69,9 +71,9 @@ const Dashboard = () => {
             }
           />
         </Link>
-        <Link to="messages">
+        <Link to={dashboardPath.supplier}>
           <Button
-            label="Messages"
+            label="Supplier"
             className={
               isMobile
                 ? 'btn-black-square-fill btn-block'
@@ -79,9 +81,9 @@ const Dashboard = () => {
             }
           />
         </Link>
-        <Link to="messages">
+        <Link to={dashboardPath.customers}>
           <Button
-            label="Messages"
+            label="Customers"
             className={
               isMobile
                 ? 'btn-black-square-fill btn-block'
@@ -90,14 +92,18 @@ const Dashboard = () => {
           />
         </Link>
       </Drawer>
-      <img src={images.logo} className={styles.logo} alt="logo" />
       {renderToggleButton()}
       <div className={styles.container}>
         <Switch>
           <Route path={dashboardPath.greeting}>
             <Greeting me={me} toggleDrawer={toggleDrawer} />
           </Route>
-
+          <Route path={dashboardPath.supplier}>
+            <Supplier />
+          </Route>
+          <Route path={dashboardPath.customers}>
+            <Customers />
+          </Route>
           <Redirect
             to={dashboardPath.greeting}
             me={me}
