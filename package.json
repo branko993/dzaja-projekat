@@ -1,7 +1,7 @@
 {
   "name": "react-firebase-boilerplate",
   "version": "0.1.0",
-  "homepage": "https://branko993.github.io/dzaja-projekat",
+  "homepage": "https://branko993.github.io/finansijer",
   "private": true,
   "description": "create-react-app based firebase, liter, formatter & test pre-setup project",
   "author": "Wataru Maeda <w.maeda.ca@gmail.com>",
