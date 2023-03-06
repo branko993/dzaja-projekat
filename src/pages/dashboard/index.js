@@ -1,16 +1,16 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Drawer from 'react-modern-drawer'
-import { Link } from 'react-router-dom'
+import { Link, Switch, Route, Redirect } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
+import { dashboardPath } from 'utils/const'
 
 import Button from 'components/Button'
-import { actions } from 'slices/app.slice'
 import { images } from 'theme'
 import styles from './dashboard.module.scss'
+import Greeting from './greeting'
 
 const Dashboard = () => {
-  const dispatch = useDispatch()
   const { me } = useSelector((state) => state.app)
   const [isOpen, setIsOpen] = React.useState(!isMobile)
   const toggleDrawer = () => {
@@ -35,7 +35,7 @@ const Dashboard = () => {
       <div>
         <img
           src={images.logoNoBackgroundBlack}
-          className={styles.logoSidebar}
+          className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
           alt="logo"
         />
         <Button onClick={toggleDrawer}>
@@ -45,69 +45,65 @@ const Dashboard = () => {
     ) : (
       <img
         src={images.logoNoBackgroundBlack}
-        className={styles.logoSidebar}
+        className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
         alt="logo"
       />
     )
 
   return (
     <div className={styles.root}>
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction={isMobile ? 'right' : 'left'}
+        enableOverlay={false}
+      >
+        {renderLogo()}
+        <Link to="messages">
+          <Button
+            label="Messages"
+            className={
+              isMobile
+                ? 'btn-black-square-fill btn-block mt-5'
+                : 'btn-black-no-border btn-block mt-5'
+            }
+          />
+        </Link>
+        <Link to="messages">
+          <Button
+            label="Messages"
+            className={
+              isMobile
+                ? 'btn-black-square-fill btn-block'
+                : 'btn-black-no-border btn-block'
+            }
+          />
+        </Link>
+        <Link to="messages">
+          <Button
+            label="Messages"
+            className={
+              isMobile
+                ? 'btn-black-square-fill btn-block'
+                : 'btn-black-no-border btn-block'
+            }
+          />
+        </Link>
+      </Drawer>
+      <img src={images.logo} className={styles.logo} alt="logo" />
+      {renderToggleButton()}
       <div className={styles.container}>
-        <Drawer
-          open={isOpen}
-          onClose={toggleDrawer}
-          direction={isMobile ? 'right' : 'left'}
-          enableOverlay={false}
-        >
-          {renderLogo()}
-          <Link to="messages">
-            <Button
-              label="Messages"
-              className={
-                isMobile
-                  ? 'btn-black-square-fill btn-block mt-5'
-                  : 'btn-black-no-border btn-block mt-5'
-              }
-            />
-          </Link>
-          <Link to="messages">
-            <Button
-              label="Messages"
-              className={
-                isMobile
-                  ? 'btn-black-square-fill btn-block'
-                  : 'btn-black-no-border btn-block'
-              }
-            />
-          </Link>
-          <Link to="messages">
-            <Button
-              label="Messages"
-              className={
-                isMobile
-                  ? 'btn-black-square-fill btn-block'
-                  : 'btn-black-no-border btn-block'
-              }
-            />
-          </Link>
-        </Drawer>
-        <img src={images.logo} className={styles.logo} alt="logo" />
-        {renderToggleButton()}
+        <Switch>
+          <Route path={dashboardPath.greeting}>
+            <Greeting me={me} toggleDrawer={toggleDrawer} />
+          </Route>
 
-        <h3 className={styles.greeting}>{`Hi👋, ${me?.fullName || 'User'}`}</h3>
-        <h1 className={styles.title}>React + Firebase Boilerplate</h1>
-        <div className={styles.buttonContainer}>
-          <Button
-            label="Download for free"
-            className={`btn-purple-fill ${styles.download}`}
-            onClick={toggleDrawer}
+          <Redirect
+            to={dashboardPath.greeting}
+            me={me}
+            toggleDrawer={toggleDrawer}
           />
-          <Button
-            label="Logout"
-            className={`btn-purple-outline ${styles.logout}`}
-            onClick={() => dispatch(actions.logout())}
-          />
-        </div>
+        </Switch>
       </div>
     </div>
   )

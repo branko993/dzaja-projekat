@@ -6,3 +6,7 @@ export const path = {
   confirmEmail: '/confirm-email',
   dashboard: '/dashboard',
 }
+
+export const dashboardPath = {
+  greeting: '/dashboard/greeting',
+}
