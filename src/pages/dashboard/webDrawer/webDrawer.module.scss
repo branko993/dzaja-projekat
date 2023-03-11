@@ -1,0 +1,50 @@
+@import '../../../theme/core.scss';
+
+.drawer {
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+  width: 250px;
+  background-color: white;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+
+  .logoSidebar {
+    width: 100%;
+    height: auto;
+    margin-top: rem(20);
+  }
+
+  .logoSidebarMobile {
+    width: 70%;
+    height: auto;
+    margin-top: rem(20);
+  }
+
+  .navbarToggle {
+    color: black;
+    font-size: rem(30);
+    position: absolute;
+    top: rem(25);
+    right: rem(32);
+    cursor: pointer;
+  }
+
+  .navItem {
+    text-align: center;
+    color: $dark-gray;
+    text-decoration: none;
+    height: rem(60);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: rem(4) rem(16);
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+
+    &:hover {
+      color: white;
+      background: lighten($dark-gray, 10%);
+      transition: all 0.3s ease;
+    }
+  }
+}

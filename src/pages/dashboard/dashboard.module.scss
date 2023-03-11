@@ -4,9 +4,16 @@
   flex: 1;
   display: flex;
   position: relative;
-  flex-direction: column;
   background-color: $dark-gray;
   height: '100vh';
+}
+
+.flexRow {
+  flex-direction: row;
+}
+
+.flexColumn {
+  flex-direction: column;
 }
 
 .container {

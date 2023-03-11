@@ -9,7 +9,7 @@ import Button from 'components/Button'
 import { images } from 'theme'
 import styles from './drawer.module.scss'
 
-const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
+const MobileDrawerNavigation = ({ isOpen, toggleDrawer }) => {
   const activeDrawerStyle = {
     backgroundColor: `#b1bac2`,
   }
@@ -73,10 +73,10 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
   )
 }
 
-DrawerNavigation.propTypes = {
+MobileDrawerNavigation.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggleDrawer: PropTypes.func.isRequired,
 }
-DrawerNavigation.defaultProps = {}
+MobileDrawerNavigation.defaultProps = {}
 
-export default DrawerNavigation
+export default MobileDrawerNavigation

@@ -9,11 +9,14 @@ import styles from './dashboard.module.scss'
 import Greeting from './greeting'
 import Suppliers from './suppliers'
 import Customers from './customers'
-import DrawerNavigation from './drawer'
+import MobileDrawerNavigation from './drawer'
+import WebDrawer from './webDrawer'
 
 const Dashboard = () => {
   const { me } = useSelector((state) => state.app)
-  const [isOpen, setIsOpen] = React.useState(!isMobile)
+  // const [isOpen, setIsOpen] = React.useState(!isMobile)
+  const [isOpen, setIsOpen] = React.useState(false)
+
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
@@ -39,9 +42,19 @@ const Dashboard = () => {
       <></>
     )
 
+  const renderDrawer = () =>
+    isMobile ? (
+      <MobileDrawerNavigation isOpen={isOpen} toggleDrawer={toggleDrawer} />
+    ) : (
+      <WebDrawer />
+    )
   return (
-    <div className={styles.root}>
-      <DrawerNavigation isOpen={isOpen} toggleDrawer={toggleDrawer} />
+    <div
+      className={`${styles.root} ${
+        isMobile ? styles.flexColumn : styles.flexRow
+      }`}
+    >
+      {renderDrawer()}
       {renderToggleButton()}
       <div className={styles.container}>
         <Switch>
