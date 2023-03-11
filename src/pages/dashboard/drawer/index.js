@@ -18,10 +18,8 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
     isMobile ? (
       <div>
         <img
-          src={
-            isMobile ? images.logoNoBackgroundBlack : images.logoNoBackground
-          }
-          className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
+          src={images.logoNoBackgroundBlack}
+          className={styles.logoSidebarMobile}
           alt="logo"
         />
         <Button onClick={toggleDrawer}>
@@ -31,13 +29,14 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
     ) : (
       <img
         src={images.logoNoBackgroundBlack}
-        className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
+        className={styles.logoSidebar}
         alt="logo"
       />
     )
 
   return (
     <Drawer
+      style={{ backgroundColor: 'white' }}
       open={isOpen}
       onClose={toggleDrawer}
       direction={isMobile ? 'right' : 'left'}
