@@ -49,6 +49,7 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
       className={styles.drawer}
     >
       {renderLogo()}
+      {isDarkMode() ? 'dark' : 'light'}
       <NavLink
         to={dashboardPath.greeting}
         activeStyle={activeDrawerStyle}
