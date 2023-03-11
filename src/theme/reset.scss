@@ -42,8 +42,11 @@ body {
   min-height: 100vh;
 }
 
-:root {
-  color-scheme: only light;
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: red;
+    color: #fff;
+  }
 }
 
 .app-loader-container {
