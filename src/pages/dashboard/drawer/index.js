@@ -5,6 +5,7 @@ import { isMobile } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
 import PropTypes from 'prop-types'
 import { isDarkMode } from 'utils/helpers'
+import { UAParser } from 'ua-parser-js'
 
 import Button from 'components/Button'
 import { images } from 'theme'
@@ -14,6 +15,7 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
   const activeDrawerStyle = {
     backgroundColor: `#b1bac2`,
   }
+  const parser = new UAParser()
 
   const renderLogo = () =>
     isMobile ? (
@@ -49,7 +51,7 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
       className={styles.drawer}
     >
       {renderLogo()}
-      {isDarkMode() ? 'dark' : 'light'}
+      {parser.getBrowser().name}
       <NavLink
         to={dashboardPath.greeting}
         activeStyle={activeDrawerStyle}

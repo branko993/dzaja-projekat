@@ -15460,7 +15460,7 @@
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   "version" "4.9.5"
 
-"ua-parser-js@^1.0.33":
+"ua-parser-js@^1.0.33", "ua-parser-js@^1.0.34":
   "integrity" "sha512-K9mwJm/DaB6mRLZfw6q8IMXipcrmuT6yfhYmwhAkuh+81sChuYstYA+znlgaflUPaYUa3odxKPKGw6Vw/lANew=="
   "resolved" "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-1.0.34.tgz"
   "version" "1.0.34"
