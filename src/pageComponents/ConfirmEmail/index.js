@@ -10,16 +10,16 @@ const ConfirmEmail = ({ email, isOpen, toggle, onSubmit }) => (
     <div className={styles.root}>
       <div className={styles.container}>
         <FontIcon name="envelope-open-text" className={styles.icon} />
-        <h2 className={styles.title}>Потврдите вашу е-адресу</h2>
+        <h2 className={styles.title}>Potvrdite vašu e-adresu</h2>
         <p className={styles.desc}>
-          Послали смо електронску пошту на {'\t'}
+          Poslali smo elektronsku poštu na {'\t'}
           <a href={`mailto:${email}`}>{email}</a>
           {'\t'}
-          како би потврдили вашу е-адресу. Након што примите е-пошту, кликните
-          на линк како бисте довршили регистрацију.
+          kako bi potvrdili vašu e-adresu. Nakon što primite e-poštu, kliknite
+          na link kako biste dovršili registraciju.
         </p>
         <Button
-          label="Назад на пријаву"
+          label="Nazad na prijavu"
           className={`btn-pink-fill ${styles.backButton}`}
           onClick={onSubmit}
         />

@@ -58,9 +58,9 @@ const Login = () => {
   return (
     <div className={styles.root}>
       {resErr && <ErrorBox>{resErr}</ErrorBox>}
-      <h2 className={styles.title}>Пријави се</h2>
+      <h2 className={styles.title}>Prijavi se</h2>
       <Input
-        label="Е-адреса"
+        label="Е-adresa"
         name="email"
         placeholder="email@example.com"
         value={input.email}
@@ -72,7 +72,7 @@ const Login = () => {
       />
       <Input
         type="password"
-        label="Лозинка"
+        label="Lozinka"
         name="password"
         placeholder="password1234"
         value={input.password}
@@ -84,7 +84,7 @@ const Login = () => {
       />
       <br />
       <Button
-        label="Пријави се"
+        label="Prijavi se"
         className={`btn-black-fill ${styles.submitButton}`}
         onClick={handleSubmit}
         isLoading={isLoading}
@@ -93,7 +93,7 @@ const Login = () => {
         <div className={styles.textContainer}>
           Немате налог?{' '}
           <Button
-            label="Регистрација"
+            label="Registracija"
             className={styles.linkButton}
             onClick={() => history.push(path.signup)}
           />
@@ -101,7 +101,7 @@ const Login = () => {
         <div className={styles.textContainer}>
           Заборавили сте{' '}
           <Button
-            label="лозинку"
+            label="lozinku"
             className={styles.linkButton}
             onClick={() => history.push(path.resetPassword)}
           />

@@ -12,12 +12,12 @@ const Auth = () => (
     <div className={styles.leftContainer}>
       <img src={images.logo} className={styles.logo} alt="logo" />
       <img src={images.logoNoBackground} className={styles.logo} alt="logo" />
-      <h1 className={styles.header}>👋Добро нам дошли</h1>
-      <p className={styles.title}>Шта можете са нама?</p>
+      <h1 className={styles.header}>👋 Dobro nam došli</h1>
+      <p className={styles.title}>Šta možete sa nama?</p>
       <p className={styles.description}>
-        Апликација за праћење прихода и расхода за ваш бизнис!
+        Aplikacija za praćenje prihoda i rashoda za vaš biznis!
       </p>
-      <p className={styles.prompt}>Региструј се и испробај 👉</p>
+      <p className={styles.prompt}>Registruj se i isprobaj</p>
     </div>
     <div className={styles.rightContainer}>
       <Switch>

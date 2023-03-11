@@ -53,21 +53,21 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
         activeStyle={activeDrawerStyle}
         className={`${styles.navItem} mt-4`}
       >
-        Home
+        Početna
       </NavLink>
       <NavLink
         to={dashboardPath.suppliers}
         activeStyle={activeDrawerStyle}
         className={styles.navItem}
       >
-        Suppliers
+        Dobavljači
       </NavLink>
       <NavLink
         to={dashboardPath.customers}
         activeStyle={activeDrawerStyle}
         className={styles.navItem}
       >
-        Customers
+        Klijenti
       </NavLink>
     </Drawer>
   )
