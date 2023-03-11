@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/finansijer/static/css/main.cb61ea43.chunk.css",
+    "main.css": "/finansijer/static/css/main.ff24635d.chunk.css",
     "main.js": "/finansijer/static/js/main.59bd5dc5.chunk.js",
     "main.js.map": "/finansijer/static/js/main.59bd5dc5.chunk.js.map",
-    "runtime-main.js": "/finansijer/static/js/runtime-main.f26e832a.js",
-    "runtime-main.js.map": "/finansijer/static/js/runtime-main.f26e832a.js.map",
+    "runtime-main.js": "/finansijer/static/js/runtime-main.0d1bdaff.js",
+    "runtime-main.js.map": "/finansijer/static/js/runtime-main.0d1bdaff.js.map",
     "static/css/2.a6e85c8a.chunk.css": "/finansijer/static/css/2.a6e85c8a.chunk.css",
     "static/js/2.2645f27c.chunk.js": "/finansijer/static/js/2.2645f27c.chunk.js",
     "static/js/2.2645f27c.chunk.js.map": "/finansijer/static/js/2.2645f27c.chunk.js.map",
@@ -12,8 +12,8 @@
     "static/js/3.6eac65ce.chunk.js": "/finansijer/static/js/3.6eac65ce.chunk.js",
     "static/js/3.6eac65ce.chunk.js.map": "/finansijer/static/js/3.6eac65ce.chunk.js.map",
     "static/css/4.c6620b63.chunk.css": "/finansijer/static/css/4.c6620b63.chunk.css",
-    "static/js/4.55006a18.chunk.js": "/finansijer/static/js/4.55006a18.chunk.js",
-    "static/js/4.55006a18.chunk.js.map": "/finansijer/static/js/4.55006a18.chunk.js.map",
+    "static/js/4.f63a7d8d.chunk.js": "/finansijer/static/js/4.f63a7d8d.chunk.js",
+    "static/js/4.f63a7d8d.chunk.js.map": "/finansijer/static/js/4.f63a7d8d.chunk.js.map",
     "static/js/5.b459a2e9.chunk.js": "/finansijer/static/js/5.b459a2e9.chunk.js",
     "static/js/5.b459a2e9.chunk.js.map": "/finansijer/static/js/5.b459a2e9.chunk.js.map",
     "static/js/6.893bd88e.chunk.js": "/finansijer/static/js/6.893bd88e.chunk.js",
@@ -24,7 +24,7 @@
     "static/css/2.a6e85c8a.chunk.css.map": "/finansijer/static/css/2.a6e85c8a.chunk.css.map",
     "static/css/3.dbedfec2.chunk.css.map": "/finansijer/static/css/3.dbedfec2.chunk.css.map",
     "static/css/4.c6620b63.chunk.css.map": "/finansijer/static/css/4.c6620b63.chunk.css.map",
-    "static/css/main.cb61ea43.chunk.css.map": "/finansijer/static/css/main.cb61ea43.chunk.css.map",
+    "static/css/main.ff24635d.chunk.css.map": "/finansijer/static/css/main.ff24635d.chunk.css.map",
     "static/js/2.2645f27c.chunk.js.LICENSE.txt": "/finansijer/static/js/2.2645f27c.chunk.js.LICENSE.txt",
     "static/js/5.b459a2e9.chunk.js.LICENSE.txt": "/finansijer/static/js/5.b459a2e9.chunk.js.LICENSE.txt",
     "static/media/logo-no-background-black.f50147e0.png": "/finansijer/static/media/logo-no-background-black.f50147e0.png",
@@ -34,10 +34,10 @@
     "static/media/profile.5f558e0f.png": "/finansijer/static/media/profile.5f558e0f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f26e832a.js",
+    "static/js/runtime-main.0d1bdaff.js",
     "static/css/2.a6e85c8a.chunk.css",
     "static/js/2.2645f27c.chunk.js",
-    "static/css/main.cb61ea43.chunk.css",
+    "static/css/main.ff24635d.chunk.css",
     "static/js/main.59bd5dc5.chunk.js"
   ]
 }
