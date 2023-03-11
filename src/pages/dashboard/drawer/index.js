@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
 import PropTypes from 'prop-types'
+import { isDarkMode } from 'utils/helpers'
 
 import Button from 'components/Button'
 import { images } from 'theme'
@@ -18,7 +19,11 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
     isMobile ? (
       <div>
         <img
-          src={images.logoNoBackgroundBlack}
+          src={
+            isDarkMode()
+              ? images.logoNoBackground
+              : images.logoNoBackgroundBlack
+          }
           className={styles.logoSidebarMobile}
           alt="logo"
         />
