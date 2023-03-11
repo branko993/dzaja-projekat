@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { firestore } from 'utils/firebase'
+import { isMobile } from 'react-device-detect'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { ColumnGroup } from 'primereact/columngroup'
 import { Row } from 'primereact/row'
+import styles from './suppliers.module.scss'
 
 const headerGroup = (
   <ColumnGroup>
@@ -70,7 +72,7 @@ const Suppliers = () => {
   }, [])
 
   return (
-    <>
+    <div className={isMobile ? styles.tableWrapper : 'card'}>
       <DataTable
         value={supplierBills}
         headerColumnGroup={headerGroup}
@@ -84,7 +86,7 @@ const Suppliers = () => {
         <Column field="leftToPay" />
         <Column field="value" />
       </DataTable>
-    </>
+    </div>
   )
 }
 
