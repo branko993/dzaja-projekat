@@ -42,13 +42,6 @@ body {
   min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: red;
-    color: #fff;
-  }
-}
-
 .app-loader-container {
   flex: 1;
   display: flex;
