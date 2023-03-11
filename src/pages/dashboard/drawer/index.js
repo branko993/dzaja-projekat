@@ -3,6 +3,7 @@ import Drawer from 'react-modern-drawer'
 import { NavLink } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
+import PropTypes from 'prop-types'
 
 import Button from 'components/Button'
 import { images } from 'theme'
@@ -17,7 +18,9 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
     isMobile ? (
       <div>
         <img
-          src={images.logoNoBackgroundBlack}
+          src={
+            isMobile ? images.logoNoBackgroundBlack : images.logoNoBackground
+          }
           className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
           alt="logo"
         />
@@ -67,7 +70,10 @@ const DrawerNavigation = ({ isOpen, toggleDrawer }) => {
   )
 }
 
-DrawerNavigation.propTypes = {}
+DrawerNavigation.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleDrawer: PropTypes.func.isRequired,
+}
 DrawerNavigation.defaultProps = {}
 
 export default DrawerNavigation
