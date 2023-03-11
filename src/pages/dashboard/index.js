@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import Drawer from 'react-modern-drawer'
-import { Link, Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
 
 import Button from 'components/Button'
-import { images } from 'theme'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
 import Suppliers from './suppliers'
 import Customers from './customers'
+import DrawerNavigation from './drawer'
 
 const Dashboard = () => {
   const { me } = useSelector((state) => state.app)
@@ -18,6 +17,14 @@ const Dashboard = () => {
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
+
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsOpen(false) // Close the navigation panel
+    }
+  }, [pathname])
 
   const renderToggleButton = () =>
     isMobile ? (
@@ -32,66 +39,9 @@ const Dashboard = () => {
       <></>
     )
 
-  const renderLogo = () =>
-    isMobile ? (
-      <div>
-        <img
-          src={images.logoNoBackgroundBlack}
-          className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
-          alt="logo"
-        />
-        <Button onClick={toggleDrawer}>
-          <i className={`${styles.navbarToggle} pi pi-align-justify`} />
-        </Button>
-      </div>
-    ) : (
-      <img
-        src={images.logoNoBackgroundBlack}
-        className={isMobile ? styles.logoSidebarMobile : styles.logoSidebar}
-        alt="logo"
-      />
-    )
-
   return (
     <div className={styles.root}>
-      <Drawer
-        open={isOpen}
-        onClose={toggleDrawer}
-        direction={isMobile ? 'right' : 'left'}
-        enableOverlay={false}
-      >
-        {renderLogo()}
-        <Link to={dashboardPath.greeting}>
-          <Button
-            label="Home"
-            className={
-              isMobile
-                ? 'btn-black-square-fill btn-block mt-5'
-                : 'btn-black-no-border btn-block mt-5'
-            }
-          />
-        </Link>
-        <Link to={dashboardPath.suppliers}>
-          <Button
-            label="Suppliers"
-            className={
-              isMobile
-                ? 'btn-black-square-fill btn-block'
-                : 'btn-black-no-border btn-block'
-            }
-          />
-        </Link>
-        <Link to={dashboardPath.customers}>
-          <Button
-            label="Customers"
-            className={
-              isMobile
-                ? 'btn-black-square-fill btn-block'
-                : 'btn-black-no-border btn-block'
-            }
-          />
-        </Link>
-      </Drawer>
+      <DrawerNavigation isOpen={isOpen} toggleDrawer={toggleDrawer} />
       {renderToggleButton()}
       <div className={styles.container}>
         <Switch>

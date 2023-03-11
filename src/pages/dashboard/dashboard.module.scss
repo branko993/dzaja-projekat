@@ -37,31 +37,9 @@
   cursor: pointer;
 }
 
-
-.navbarToggle {
-  color: black;
-  font-size: rem(30);
-  position: absolute;
-  top: rem(25);
-  right: rem(32);
-  cursor: pointer;
-}
-
 .description {
   color: $light-gray;
   margin-top: rem(24);
   font-size: rem(16);
   text-align: center;
-}
-
-.logoSidebar {
-  width: 100%;
-  height: auto;
-  margin-top: rem(20);
-}
-
-.logoSidebarMobile {
-  width: 70%;
-  height: auto;
-  margin-top: rem(20);
 }
