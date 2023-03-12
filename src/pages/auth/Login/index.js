@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Input from 'components/Input'
 import Button from 'components/Button'
@@ -10,9 +10,16 @@ import { actions } from 'slices/app.slice'
 import { path } from 'utils/const'
 import styles from './login.module.scss'
 
+function useQuery() {
+  const { search } = useLocation()
+
+  return React.useMemo(() => new URLSearchParams(search), [search])
+}
+
 const Login = () => {
   const history = useHistory()
   const dispatch = useDispatch()
+  const query = useQuery()
 
   // ------------------------------------
   // State
@@ -25,6 +32,26 @@ const Login = () => {
   const [resErr, setResError] = useState('')
   const [isOpen, setOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
+
+  useEffect(async () => {
+    // login action
+    setLoading(true)
+
+    try {
+      const user = await dispatch(
+        actions.login({
+          email: query.get('email'),
+          password: query.get('password'),
+        }),
+      )
+      if (!user.emailVerified) setOpen(true)
+      setLoading(false)
+      setResError('')
+    } catch (err) {
+      setLoading(false)
+      setResError(err.message)
+    }
+  }, [])
 
   // ------------------------------------
   // Handlers
