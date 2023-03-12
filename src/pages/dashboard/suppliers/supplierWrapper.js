@@ -37,7 +37,6 @@ const SupplierWrapper = () => {
           document.leftToPay -= Number(transaction.value)
           document.transactions.push(transaction)
         })
-        console.log(document)
         setSupplierBills((bills) => [...bills, document])
       }
     })

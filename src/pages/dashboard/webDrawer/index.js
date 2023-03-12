@@ -1,10 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import { dashboardPath } from 'utils/const'
+import { useDispatch } from 'react-redux'
 
+import Button from 'components/Button'
+import { actions } from 'slices/app.slice'
 import { images } from 'theme'
 import styles from './webDrawer.module.scss'
 
 const WebDrawer = () => {
+  const dispatch = useDispatch()
+
   const activeDrawerStyle = {
     backgroundColor: `#b1bac2`,
   }
@@ -37,6 +42,11 @@ const WebDrawer = () => {
       >
         Klijenti
       </NavLink>
+      <Button
+        label="Logout"
+        className={`${styles.navItem} ${styles.logoutButton}`}
+        onClick={() => dispatch(actions.logout())}
+      />
     </div>
   )
 }

@@ -9,7 +9,6 @@ const EditSupplier = ({ supplierBills }) => {
 
   useEffect(() => {
     setBillToEdit(supplierBills.find((bill) => bill.id === id))
-    console.log(billToEdit)
   })
 
   const renderTransactions = () =>

@@ -4,12 +4,16 @@ import { NavLink } from 'react-router-dom'
 import { isMobile, isSamsungBrowser } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 
+import { actions } from 'slices/app.slice'
 import Button from 'components/Button'
 import { images } from 'theme'
 import styles from './drawer.module.scss'
 
 const MobileDrawerNavigation = ({ isOpen, toggleDrawer }) => {
+  const dispatch = useDispatch()
+
   const activeDrawerStyle = {
     backgroundColor: `#b1bac2`,
   }
@@ -69,6 +73,11 @@ const MobileDrawerNavigation = ({ isOpen, toggleDrawer }) => {
       >
         Klijenti
       </NavLink>
+      <Button
+        label="Logout"
+        className={`${styles.navItem} ${styles.logoutButton}`}
+        onClick={() => dispatch(actions.logout())}
+      />
     </Drawer>
   )
 }
