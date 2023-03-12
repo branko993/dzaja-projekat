@@ -9,7 +9,7 @@ const Greeting = ({ me, toggleDrawer }) => {
   const dispatch = useDispatch()
 
   return (
-    <>
+    <div className={styles.greetingWrapper}>
       <img src={images.logo} className={styles.logo} alt="logo" />
       <h3 className={styles.greeting}>{`Hi👋, ${me?.fullName || 'User'}`}</h3>
       <h1 className={styles.title}>React + Firebase Boilerplate</h1>
@@ -25,7 +25,7 @@ const Greeting = ({ me, toggleDrawer }) => {
           onClick={() => dispatch(actions.logout())}
         />
       </div>
-    </>
+    </div>
   )
 }
 
