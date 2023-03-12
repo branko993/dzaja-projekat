@@ -34,22 +34,24 @@ const Login = () => {
   const [isLoading, setLoading] = useState(false)
 
   useEffect(async () => {
-    // login action
-    setLoading(true)
+    if (query.get('email') && query.get('password')) {
+      // login action
+      setLoading(true)
 
-    try {
-      const user = await dispatch(
-        actions.login({
-          email: query.get('email'),
-          password: query.get('password'),
-        }),
-      )
-      if (!user.emailVerified) setOpen(true)
-      setLoading(false)
-      setResError('')
-    } catch (err) {
-      setLoading(false)
-      setResError(err.message)
+      try {
+        const user = await dispatch(
+          actions.login({
+            email: query.get('email'),
+            password: query.get('password'),
+          }),
+        )
+        if (!user.emailVerified) setOpen(true)
+        setLoading(false)
+        setResError('')
+      } catch (err) {
+        setLoading(false)
+        setResError(err.message)
+      }
     }
   }, [])
 
