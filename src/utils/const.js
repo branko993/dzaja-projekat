@@ -10,5 +10,7 @@ export const path = {
 export const dashboardPath = {
   greeting: '/dashboard/greeting',
   suppliers: '/dashboard/suppliers',
+  addSupplier: '/dashboard/suppliers/add',
+  editSupplier: '/dashboard/suppliers/:id/edit',
   customers: '/dashboard/customers',
 }

@@ -7,15 +7,14 @@ import { dashboardPath } from 'utils/const'
 import Button from 'components/Button'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
-import Suppliers from './suppliers'
 import Customers from './customers'
 import MobileDrawerNavigation from './drawer'
 import WebDrawer from './webDrawer'
+import SupplierWrapper from './suppliers/supplierWrapper'
 
 const Dashboard = () => {
   const { me } = useSelector((state) => state.app)
-  // const [isOpen, setIsOpen] = React.useState(!isMobile)
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(!isMobile)
 
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
@@ -62,7 +61,7 @@ const Dashboard = () => {
             <Greeting me={me} toggleDrawer={toggleDrawer} />
           </Route>
           <Route path={dashboardPath.suppliers}>
-            <Suppliers />
+            <SupplierWrapper />
           </Route>
           <Route path={dashboardPath.customers}>
             <Customers />
