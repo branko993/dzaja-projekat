@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { firestore } from 'utils/firebase'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { isMobile } from 'react-device-detect'
+import Button from 'components/Button'
 import styles from './suppliers.module.scss'
 
 const Suppliers = () => {
@@ -78,6 +79,7 @@ const Suppliers = () => {
           <Th>{calculateStatistics().paid}</Th>
           <Th>{calculateStatistics().leftToPay}</Th>
           <Th>{calculateStatistics().sumOfValues}</Th>
+          <Th />
         </Tr>
       </Tbody>
     )
@@ -91,11 +93,17 @@ const Suppliers = () => {
         <Td>{bill.paid}</Td>
         <Td>{bill.leftToPay}</Td>
         <Td>{bill.value}</Td>
+        <Td className={!isMobile && styles.actionsWrapper}>
+          <Button label="Pogledaj račun" className="btn-purple-outline" />
+        </Td>
       </Tr>
     ))
 
   return (
     <>
+      <div className={styles.buttonWrapper}>
+        <Button label="Dodaj novi račun" className="btn-purple-outline" />
+      </div>
       <Table className={styles.table}>
         <Thead>
           <Tr>
@@ -105,6 +113,7 @@ const Suppliers = () => {
             <Th>Uplaćeno</Th>
             <Th>Preostalo</Th>
             <Th>Ukupan iznos</Th>
+            <Th />
           </Tr>
         </Thead>
         <Tbody>{renderTableBody()}</Tbody>

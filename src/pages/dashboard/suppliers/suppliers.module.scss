@@ -1,7 +1,8 @@
 @import '../../../theme/core.scss';
 
-.tableWrapper {
-  width: 300px
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .table {
@@ -38,5 +39,10 @@
     border-left-width: 1px;
     border-width: 0 0 1px 0;
     padding: 1rem 1rem;
+
+    &.actionsWrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
