@@ -8,6 +8,7 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import 'theme/reset.scss'
 import 'react-modern-drawer/dist/index.css'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(

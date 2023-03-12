@@ -3,3 +3,40 @@
 .tableWrapper {
   width: 300px
 }
+
+.table {
+  color: white;
+  border-radius: 2px;
+
+  th {
+    text-align: left;
+    padding: 1rem 1rem;
+    border: 1px solid #dee2e6;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-width: 0 0 1px 0;
+    font-weight: 700;
+    color: #343a40;
+    background: #f8f9fa;
+    transition: box-shadow 0.2s;
+  }
+
+  tr {
+    background: #ffffff;
+    color: #495057;
+    transition: box-shadow 0.2s;
+  }
+
+  td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+  }
+}

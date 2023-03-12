@@ -1,40 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { firestore } from 'utils/firebase'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { isMobile } from 'react-device-detect'
-import { DataTable } from 'primereact/datatable'
-import { Column } from 'primereact/column'
-import { ColumnGroup } from 'primereact/columngroup'
-import { Row } from 'primereact/row'
 import styles from './suppliers.module.scss'
-
-const headerGroup = (
-  <ColumnGroup>
-    <Row>
-      <Column header="Broj računa" rowSpan={2} />
-      <Column header="Datum" rowSpan={2} />
-      <Column header="Ime dobavljača" rowSpan={2} />
-      <Column header="Uplaćeno" rowSpan={2} />
-      <Column header="Preostalo" rowSpan={2} />
-      <Column header="Ukupan iznos" rowSpan={2} />
-    </Row>
-  </ColumnGroup>
-)
-
-const footerGroup = (
-  <ColumnGroup>
-    <Row>
-      <Column
-        footer="Total:"
-        colSpan={3}
-        footerStyle={{ textAlign: 'right' }}
-      />
-      <Column footer={20} />
-      <Column footer={40} />
-      <Column footer={60} />
-    </Row>
-  </ColumnGroup>
-)
 
 const Suppliers = () => {
   const { me } = useSelector((state) => state.app)
@@ -70,23 +39,78 @@ const Suppliers = () => {
       }
     })
   }, [])
+  const calculateStatistics = () => {
+    const results = {
+      paid: 0,
+      leftToPay: 0,
+      sumOfValues: 0,
+    }
+    supplierBills.forEach((bill) => {
+      results.paid += bill.paid
+      results.leftToPay += bill.leftToPay
+      results.sumOfValues += bill.value
+    })
+    return results
+  }
+
+  const renderFooter = () =>
+    isMobile ? (
+      <Tbody>
+        <Tr>
+          <Th style={{ textAlign: 'left' }}>Total:</Th>
+          <Th style={{ textAlign: 'right' }}>
+            Uplaćeno: {calculateStatistics().paid}
+          </Th>
+          <Th style={{ textAlign: 'right' }}>
+            Preostalo: {calculateStatistics().leftToPay}
+          </Th>
+          <Th style={{ textAlign: 'right' }}>
+            Ukupan iznos: {calculateStatistics().sumOfValues}
+          </Th>
+        </Tr>
+      </Tbody>
+    ) : (
+      <Tbody>
+        <Tr>
+          <Th />
+          <Th />
+          <Th style={{ textAlign: 'left' }}>Total:</Th>
+          <Th>{calculateStatistics().paid}</Th>
+          <Th>{calculateStatistics().leftToPay}</Th>
+          <Th>{calculateStatistics().sumOfValues}</Th>
+        </Tr>
+      </Tbody>
+    )
+
+  const renderTableBody = () =>
+    supplierBills.map((bill) => (
+      <Tr>
+        <Td>{bill.billNumber}</Td>
+        <Td>{bill.dateOfCreation}</Td>
+        <Td>{bill.supplierName}</Td>
+        <Td>{bill.paid}</Td>
+        <Td>{bill.leftToPay}</Td>
+        <Td>{bill.value}</Td>
+      </Tr>
+    ))
 
   return (
-    <div className={isMobile ? styles.tableWrapper : 'card'}>
-      <DataTable
-        value={supplierBills}
-        headerColumnGroup={headerGroup}
-        footerColumnGroup={footerGroup}
-        tableStyle={{ minWidth: '50rem' }}
-      >
-        <Column field="billNumber" />
-        <Column field="dateOfCreation" />
-        <Column field="supplierName" />
-        <Column field="paid" />
-        <Column field="leftToPay" />
-        <Column field="value" />
-      </DataTable>
-    </div>
+    <>
+      <Table className={styles.table}>
+        <Thead>
+          <Tr>
+            <Th>Broj računa</Th>
+            <Th>Datum</Th>
+            <Th>Ime dobavljača</Th>
+            <Th>Uplaćeno</Th>
+            <Th>Preostalo</Th>
+            <Th>Ukupan iznos</Th>
+          </Tr>
+        </Thead>
+        <Tbody>{renderTableBody()}</Tbody>
+        {renderFooter()}
+      </Table>
+    </>
   )
 }
 
