@@ -108,12 +108,19 @@ const fetchSupplierBills =
           document.creationDate = moment(document.creationDate.toDate()).format(
             'DD/MM/YYYY',
           )
+          document.billDate = moment(document.billDate.toDate()).format(
+            'DD/MM/YYYY',
+          )
 
           supplierTransactionsSnapshot.docs.forEach((transactionDoc) => {
             const transaction = transactionDoc.data()
             transaction.creationDate = moment(
               transaction.creationDate.toDate(),
             ).format('DD/MM/YYYY')
+            transaction.transactionDate = moment(
+              transaction.transactionDate.toDate(),
+            ).format('DD/MM/YYYY')
+
             document.paid += Number(transaction.value)
             document.leftToPay -= Number(transaction.value)
             document.transactions.push(transaction)
@@ -144,7 +151,7 @@ const addTransaction =
           .set({
             id,
             billID,
-            transactionDate: moment(transactionDate).format('DD/MM/YYYY'),
+            transactionDate,
             creationDate: new Date(),
             value: Number(value),
           })
@@ -155,6 +162,9 @@ const addTransaction =
         const transactionToAdd = transaction.data()
         transactionToAdd.creationDate = moment(
           transactionToAdd.creationDate.toDate(),
+        ).format('DD/MM/YYYY')
+        transactionToAdd.transactionDate = moment(
+          transactionToAdd.transactionDate.toDate(),
         ).format('DD/MM/YYYY')
 
         dispatch(

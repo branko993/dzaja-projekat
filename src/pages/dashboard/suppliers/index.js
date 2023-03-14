@@ -28,8 +28,10 @@ const Suppliers = () => {
       <Tbody>
         <Tr>
           <Th style={{ textAlign: 'left' }}>Total:</Th>
-          <Th style={{ textAlign: 'right' }}>Uplaćeno: {statistics.paid}</Th>
-          <Th style={{ textAlign: 'right' }}>
+          <Th style={{ textAlign: 'right', color: 'green' }}>
+            Uplaćeno: {statistics.paid}
+          </Th>
+          <Th style={{ textAlign: 'right', color: 'red' }}>
             Preostalo: {statistics.leftToPay}
           </Th>
           <Th style={{ textAlign: 'right' }}>
@@ -43,8 +45,8 @@ const Suppliers = () => {
           <Th />
           <Th />
           <Th style={{ textAlign: 'left' }}>Total:</Th>
-          <Th>{statistics.paid} RSD</Th>
-          <Th>{statistics.leftToPay} RSD</Th>
+          <Th style={{ color: 'green' }}>{statistics.paid} RSD</Th>
+          <Th style={{ color: 'red' }}>{statistics.leftToPay} RSD</Th>
           <Th>{statistics.sumOfValues} RSD</Th>
           <Th />
         </Tr>
@@ -66,8 +68,8 @@ const Suppliers = () => {
           <Td>{bill.billNumber}</Td>
           <Td>{bill.billDate}</Td>
           <Td>{bill.supplierName}</Td>
-          <Td>{bill.paid} RSD</Td>
-          <Td>{bill.leftToPay} RSD</Td>
+          <Td style={{ color: 'green' }}>{bill.paid} RSD</Td>
+          <Td style={{ color: 'red' }}>{bill.leftToPay} RSD</Td>
           <Td>{bill.value} RSD</Td>
           <Td className={!isMobile && styles.actionsWrapper}>
             <Button
