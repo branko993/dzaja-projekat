@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { dashboardPath } from 'utils/const'
+import { images } from 'theme'
 
 import Button from 'components/Button'
 import styles from './dashboard.module.scss'
@@ -55,7 +56,17 @@ const Dashboard = () => {
     >
       {renderDrawer()}
       {renderToggleButton()}
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        style={{
+          backgroundImage: `url(${
+            !isMobile ? images.dashboardBackground : images.mobileBackground
+          })`,
+          backgroundSize: 'cover',
+          backgroundPosition: !isMobile && 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <Switch>
           <Route path={dashboardPath.greeting}>
             <Greeting me={me} toggleDrawer={toggleDrawer} />
