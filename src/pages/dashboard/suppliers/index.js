@@ -49,6 +49,7 @@ const Suppliers = () => {
           <Th style={{ color: 'red' }}>{statistics.leftToPay} RSD</Th>
           <Th>{statistics.sumOfValues} RSD</Th>
           <Th />
+          <Th />
         </Tr>
       </Tbody>
     )
@@ -71,6 +72,19 @@ const Suppliers = () => {
           <Td style={{ color: 'green' }}>{bill.paid} RSD</Td>
           <Td style={{ color: 'red' }}>{bill.leftToPay} RSD</Td>
           <Td>{bill.value} RSD</Td>
+          <Td>
+            {bill.value > bill.paid ? (
+              <span
+                style={{ fontSize: '1.7rem', color: 'red' }}
+                className="pi pi-times-circle"
+              />
+            ) : (
+              <span
+                style={{ fontSize: '1.7rem', color: 'green' }}
+                className="pi pi-check-circle"
+              />
+            )}
+          </Td>
           <Td className={!isMobile && styles.actionsWrapper}>
             <Button
               onClick={() => {
@@ -150,6 +164,7 @@ const Suppliers = () => {
             <Th>Uplaćeno</Th>
             <Th>Preostalo</Th>
             <Th>Ukupan iznos</Th>
+            <Th>Plaćen?</Th>
             <Th />
           </Tr>
         </Thead>
