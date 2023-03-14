@@ -18,6 +18,17 @@ export const tests = {
   },
 }
 
+export const addTransactionTests = {
+  transactionDate: {
+    test: /\S/,
+    error: 'Datum je obavezan',
+  },
+  value: {
+    test: /^\d*[1-9]\d*$/,
+    error: 'Iznos mora biti pozitivan broj',
+  },
+}
+
 const validate = (vs, ts) => {
   const errors = {}
   let isError = false

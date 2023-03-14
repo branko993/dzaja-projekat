@@ -4,47 +4,36 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { isMobile } from 'react-device-detect'
 import { useHistory } from 'react-router-dom'
 import { Dialog } from 'primereact/dialog'
-import PropTypes from 'prop-types'
 
 import Button from 'components/Button'
 import { dashboardPath } from 'utils/const'
+import { useSelector } from 'react-redux'
 
 import styles from './suppliers.module.scss'
+import AddTransactionModal from '../addTransactionModal'
 
-const Suppliers = ({ supplierBills }) => {
+const Suppliers = () => {
   const history = useHistory()
+  const { supplierBills, statistics } = useSelector((state) => state.bills)
+
   const [currentTransactions, setCurrentTransactions] = useState([])
-  const [currentBillNumber, setCurrentBillNumber] = useState([])
+  const [currentBillNumber, setCurrentBillNumber] = useState('')
+  const [currentBillID, setCurrentBillID] = useState('')
 
   const [visible, setVisible] = useState(false)
-
-  const calculateStatistics = () => {
-    const results = {
-      paid: 0,
-      leftToPay: 0,
-      sumOfValues: 0,
-    }
-    supplierBills.forEach((bill) => {
-      results.paid += bill.paid
-      results.leftToPay += bill.leftToPay
-      results.sumOfValues += bill.value
-    })
-    return results
-  }
+  const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
 
   const renderFooter = () =>
     isMobile ? (
       <Tbody>
         <Tr>
           <Th style={{ textAlign: 'left' }}>Total:</Th>
+          <Th style={{ textAlign: 'right' }}>Uplaćeno: {statistics.paid}</Th>
           <Th style={{ textAlign: 'right' }}>
-            Uplaćeno: {calculateStatistics().paid}
+            Preostalo: {statistics.leftToPay}
           </Th>
           <Th style={{ textAlign: 'right' }}>
-            Preostalo: {calculateStatistics().leftToPay}
-          </Th>
-          <Th style={{ textAlign: 'right' }}>
-            Ukupan iznos: {calculateStatistics().sumOfValues}
+            Ukupan iznos: {statistics.sumOfValues}
           </Th>
         </Tr>
       </Tbody>
@@ -54,9 +43,9 @@ const Suppliers = ({ supplierBills }) => {
           <Th />
           <Th />
           <Th style={{ textAlign: 'left' }}>Total:</Th>
-          <Th>{calculateStatistics().paid} RSD</Th>
-          <Th>{calculateStatistics().leftToPay} RSD</Th>
-          <Th>{calculateStatistics().sumOfValues} RSD</Th>
+          <Th>{statistics.paid} RSD</Th>
+          <Th>{statistics.leftToPay} RSD</Th>
+          <Th>{statistics.sumOfValues} RSD</Th>
           <Th />
         </Tr>
       </Tbody>
@@ -65,7 +54,7 @@ const Suppliers = ({ supplierBills }) => {
   const renderTransactions = () =>
     currentTransactions.map((transaction) => (
       <Tr key={transaction.id}>
-        <Td>{transaction.creationDate}</Td>
+        <Td>{transaction.transactionDate}</Td>
         <Td>{transaction.value} RSD</Td>
       </Tr>
     ))
@@ -75,7 +64,7 @@ const Suppliers = ({ supplierBills }) => {
       <React.Fragment key={bill.id}>
         <Tr>
           <Td>{bill.billNumber}</Td>
-          <Td>{bill.dateOfCreation}</Td>
+          <Td>{bill.billDate}</Td>
           <Td>{bill.supplierName}</Td>
           <Td>{bill.paid} RSD</Td>
           <Td>{bill.leftToPay} RSD</Td>
@@ -88,7 +77,7 @@ const Suppliers = ({ supplierBills }) => {
                 setVisible(true)
               }}
             >
-              <span className="pi pi-book" />
+              <span style={{ fontSize: '1.7rem' }} className="pi pi-book" />
             </Button>
             <Button
               className="ml-4"
@@ -98,7 +87,17 @@ const Suppliers = ({ supplierBills }) => {
                 setVisible(true)
               }}
             >
-              <span className="pi pi-pencil" />
+              <span style={{ fontSize: '1.7rem' }} className="pi pi-pencil" />
+            </Button>
+            <Button
+              className="ml-3"
+              onClick={() => {
+                setCurrentBillNumber(bill.billNumber)
+                setCurrentBillID(bill.id)
+                setShowAddTransactionModal(true)
+              }}
+            >
+              <span style={{ fontSize: '1.7rem' }} className="pi pi-plus" />
             </Button>
           </Td>
         </Tr>
@@ -114,10 +113,16 @@ const Suppliers = ({ supplierBills }) => {
           onClick={() => history.push(dashboardPath.addSupplier)}
         />
       </div>
+      <AddTransactionModal
+        visible={showAddTransactionModal}
+        setVisible={setShowAddTransactionModal}
+        billNumber={currentBillNumber}
+        billID={currentBillID}
+      />
       <Dialog
         header={`Transakcije za racun sa brojem ${currentBillNumber}`}
         visible={visible}
-        style={{ width: '50vw' }}
+        style={{ width: isMobile ? '80vw' : '50vw' }}
         onHide={() => setVisible(false)}
       >
         {currentTransactions.length > 0 ? (
@@ -153,31 +158,8 @@ const Suppliers = ({ supplierBills }) => {
   )
 }
 
-Suppliers.propTypes = {
-  supplierBills: PropTypes.arrayOf(
-    PropTypes.shape({
-      billNumber: PropTypes.string.isRequired,
-      dateOfCreation: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      leftToPay: PropTypes.number.isRequired,
-      paid: PropTypes.number.isRequired,
-      value: PropTypes.number.isRequired,
-      supplierName: PropTypes.string.isRequired,
-      transactions: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          billID: PropTypes.string.isRequired,
-          creationDate: PropTypes.string.isRequired,
-          value: PropTypes.number.isRequired,
-        }),
-      ).isRequired,
-      userId: PropTypes.string.isRequired,
-    }),
-  ),
-}
+Suppliers.propTypes = {}
 
-Suppliers.defaultProps = {
-  supplierBills: [],
-}
+Suppliers.defaultProps = {}
 
 export default Suppliers
