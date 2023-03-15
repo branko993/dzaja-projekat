@@ -13,13 +13,13 @@
   .logoSidebarMobile {
     width: 70%;
     height: auto;
-    margin-top: rem(20);
+    margin-top: rem(28);
     margin-left: rem(15);
   }
 
   .navbarToggle {
     color: black;
-    font-size: rem(30);
+    font-size: rem(45);
     position: absolute;
     top: rem(25);
     right: rem(32);
@@ -30,8 +30,9 @@
     text-align: center;
     color: $dark-gray;
     text-decoration: none;
-    height: rem(60);
+    height: rem(120);
     width: 100%;
+    font-size: 1.5rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
