@@ -47,6 +47,26 @@ const slice = createSlice({
       statistics: action.payload.statistics,
       supplierBills: action.payload.supplierBills,
     }),
+    updateSupplierBills: (state, action) => {
+      const newBills = [action.payload.bill].concat(state.supplierBills)
+      const statistics = calculateStatistics(newBills)
+      return {
+        ...state,
+        statistics,
+        supplierBills: newBills,
+      }
+    },
+    removeSupplierBill: (state, action) => {
+      const newBills = state.supplierBills.filter(
+        (bill) => bill.id !== action.payload.id,
+      )
+      const statistics = calculateStatistics(newBills)
+      return {
+        ...state,
+        statistics,
+        supplierBills: newBills,
+      }
+    },
     updateTransaction: (state, action) => {
       const { transaction } = action.payload
 
@@ -60,6 +80,32 @@ const slice = createSlice({
             paid,
             leftToPay,
             transactions: [transaction].concat(bill.transactions),
+          }
+        }
+        return bill
+      })
+      const statistics = calculateStatistics(newBills)
+      return {
+        ...state,
+        statistics,
+        supplierBills: newBills,
+      }
+    },
+    removeTransaction: (state, action) => {
+      const { transaction } = action.payload
+
+      const newBills = state.supplierBills.map((bill) => {
+        if (bill.id === transaction.billID) {
+          const paid = bill.paid - transaction.value
+          const leftToPay = bill.leftToPay + transaction.value
+
+          return {
+            ...bill,
+            paid,
+            leftToPay,
+            transactions: bill.transactions.filter(
+              (t) => t.id !== transaction.id,
+            ),
           }
         }
         return bill
@@ -177,6 +223,89 @@ const addTransaction =
       }
     })
 
+const addBill =
+  ({ billNumber, billDate, supplierName, value, userId }) =>
+  (dispatch) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const id = uuidv4()
+        // store user info in firestore
+        await firestore
+          .collection('supplierBill')
+          .doc(id)
+          .set({
+            id,
+            billNumber,
+            billDate,
+            supplierName,
+            creationDate: new Date(),
+            value: Number(value),
+            userId,
+          })
+        const bill = await firestore.collection('supplierBill').doc(id).get()
+        const billToAdd = bill.data()
+        billToAdd.creationDate = moment(billToAdd.creationDate.toDate()).format(
+          'DD/MM/YYYY',
+        )
+        billToAdd.billDate = moment(billToAdd.billDate.toDate()).format(
+          'DD/MM/YYYY',
+        )
+        billToAdd.paid = 0
+        billToAdd.leftToPay = Number(value)
+        billToAdd.transactions = []
+        dispatch(slice.actions.updateSupplierBills({ bill: billToAdd }))
+
+        resolve(billToAdd)
+      } catch (err) {
+        reject(err)
+      }
+    })
+
+const deleteBill =
+  ({ id }) =>
+  (dispatch) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        // store user info in firestore
+        const querySnapshot = await firestore
+          .collection('supplierBill')
+          .where('id', '==', id)
+          .get()
+        const transactionsSnapshot = await firestore
+          .collection('transactions')
+          .where('billID', '==', id)
+          .get()
+        transactionsSnapshot.docs.forEach((transaction) => {
+          transaction.ref.delete()
+        })
+        querySnapshot.docs[0].ref.delete()
+        dispatch(slice.actions.removeSupplierBill({ id }))
+
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
+    })
+
+const deleteTransaction =
+  ({ transaction }) =>
+  (dispatch) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        // store user info in firestore
+        const querySnapshot = await firestore
+          .collection('transactions')
+          .where('id', '==', transaction.id)
+          .get()
+
+        querySnapshot.docs[0].ref.delete()
+        dispatch(slice.actions.removeTransaction({ transaction }))
+
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
+    })
 // ------------------------------------
 // Exports
 // ------------------------------------
@@ -185,6 +314,9 @@ export const actions = {
   ...slice.actions,
   fetchSupplierBills,
   addTransaction,
+  addBill,
+  deleteBill,
+  deleteTransaction,
 }
 
 export default slice.reducer

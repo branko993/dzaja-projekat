@@ -3,25 +3,28 @@ import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
 import { PropTypes } from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { isMobile } from 'react-device-detect'
 import { Toast } from 'primereact/toast'
 
 import Input from 'components/Input'
-import validate, { addTransactionTests } from 'utils/validate'
+import validate, { addBillTest } from 'utils/validate'
 import ErrorBox from 'components/ErrorBox'
 import { actions } from 'slices/bills.slice'
 import { showSuccess } from 'utils/toast.helper'
 
-const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
+const AddBillModal = ({ visible, setVisible }) => {
   const dispatch = useDispatch()
+  const { me } = useSelector((state) => state.app)
   const toast = useRef(null)
 
   // ------------------------------------
   // State
   // ------------------------------------
   const [input, setInput] = useState({
-    transactionDate: '',
+    billNumber: '',
+    billDate: '',
+    supplierName: '',
     value: undefined,
   })
   const [error, setError] = useState({})
@@ -38,7 +41,9 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
 
   const closeDialog = () => {
     setInput({
-      transactionDate: '',
+      billNumber: '',
+      billDate: '',
+      supplierName: '',
       value: undefined,
     })
     setResError('')
@@ -47,21 +52,22 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
   }
 
   const handleSubmit = async () => {
-    const result = validate(input, addTransactionTests)
+    const result = validate(input, addBillTest)
     const currentDate = new Date()
+
     if (
       !result.errors.billDate &&
-      currentDate.getTime() < input.transactionDate.getTime()
+      currentDate.getTime() < input.billDate.getTime()
     ) {
-      result.errors.transactionDate = 'Datum ne može biti u budućnosti'
+      result.errors.billDate = 'Datum ne može biti u budućnosti'
     }
     setError(result.errors)
     if (result.isError) return
 
     try {
-      await dispatch(actions.addTransaction({ ...input, billID }))
+      await dispatch(actions.addBill({ ...input, userId: me.id }))
       closeDialog()
-      showSuccess(toast, 'Transakcija je uspesno dodata!')
+      showSuccess(toast, 'Račun je uspesno dodat!')
       setResError('')
     } catch (err) {
       setResError(err.message)
@@ -85,28 +91,44 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
       <Toast ref={toast} position="top-center" />
 
       <Dialog
-        header={`Dodaj transakciju na račun sa brojem: ${billNumber}`}
+        header="Dodaj novi račun"
         visible={visible}
         style={{ width: isMobile ? '80vw' : '50vw' }}
         onHide={closeDialog}
         footer={footerContent}
       >
+        <Input
+          label="Broj računa"
+          name="billNumber"
+          placeholder="Unesi broj računa"
+          value={input.billNumber}
+          onChange={handleOnChange}
+          error={error.billNumber}
+        />
         <div className="flex-auto">
           <p className="input-label">Datum</p>
           <Calendar
             style={{ width: '100%' }}
-            id="transactionDate"
-            name="transactionDate"
-            value={input.transactionDate}
+            id="billDate"
+            name="billDate"
+            value={input.billDate}
             onChange={handleOnChange}
             showIcon
             dateFormat="dd/mm/yy"
             className={error && 'is-invalid'}
           />
-          {error.transactionDate && (
-            <div className="invalid-feedback">{error.transactionDate}</div>
+          {error.billDate && (
+            <div className="invalid-feedback">{error.billDate}</div>
           )}
         </div>
+        <Input
+          label="Ime dobavljača"
+          name="supplierName"
+          placeholder="Unesi ime dobavljača"
+          value={input.supplierName}
+          onChange={handleOnChange}
+          error={error.supplierName}
+        />
         <Input
           label="Iznos"
           name="value"
@@ -122,15 +144,10 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
   )
 }
 
-AddTransactionModal.propTypes = {
+AddBillModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   setVisible: PropTypes.func.isRequired,
-  billNumber: PropTypes.string,
-  billID: PropTypes.string,
 }
-AddTransactionModal.defaultProps = {
-  billNumber: '',
-  billID: '',
-}
+AddBillModal.defaultProps = {}
 
-export default AddTransactionModal
+export default AddBillModal

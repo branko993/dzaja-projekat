@@ -1,27 +1,82 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { isMobile } from 'react-device-detect'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { Dialog } from 'primereact/dialog'
-
+import { Toast } from 'primereact/toast'
 import Button from 'components/Button'
-import { dashboardPath } from 'utils/const'
-import { useSelector } from 'react-redux'
+// import { dashboardPath } from 'utils/const'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { showSuccess } from 'utils/toast.helper'
+import { actions } from 'slices/bills.slice'
 import styles from './suppliers.module.scss'
 import AddTransactionModal from '../addTransactionModal'
+import AddBillModal from '../addBillModal'
 
 const Suppliers = () => {
-  const history = useHistory()
+  // const history = useHistory()
+  const toast = useRef(null)
+  const dispatch = useDispatch()
+
   const { supplierBills, statistics } = useSelector((state) => state.bills)
 
   const [currentTransactions, setCurrentTransactions] = useState([])
   const [currentBillNumber, setCurrentBillNumber] = useState('')
   const [currentBillID, setCurrentBillID] = useState('')
 
+  const [currentTransaction, setCurrentTransaction] = useState(null)
+
   const [visible, setVisible] = useState(false)
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
+  const [showAddBillModal, setShowAddBillModal] = useState(false)
+  const [showDeleteBillModal, setShowDeleteBillModal] = useState(false)
+  const [showDeleteTransactionModal, setShowDeleteTransactionModal] =
+    useState(false)
+
+  const deleteBillFooter = (
+    <div>
+      <Button
+        label="Otkaži"
+        onClick={() => setShowDeleteBillModal(false)}
+        className="btn btn-outline-secondary"
+      />
+      <Button
+        label="Obriši"
+        className="btn btn-outline-primary"
+        onClick={async () => {
+          await dispatch(actions.deleteBill({ id: currentBillID }))
+          showSuccess(toast, 'Račun je uspesno obrisan!')
+          setShowDeleteBillModal(false)
+        }}
+      />
+    </div>
+  )
+
+  const deleteTransactionFooter = (
+    <div>
+      <Button
+        label="Otkaži"
+        onClick={() => setShowDeleteTransactionModal(false)}
+        className="btn btn-outline-secondary"
+      />
+      <Button
+        label="Obriši"
+        className="btn btn-outline-primary"
+        onClick={async () => {
+          await dispatch(
+            actions.deleteTransaction({ transaction: currentTransaction }),
+          )
+          setCurrentTransactions(
+            currentTransactions.filter((t) => t.id !== currentTransaction.id),
+          )
+          showSuccess(toast, 'Transakcija je uspesno obrisana!')
+          setShowDeleteTransactionModal(false)
+        }}
+      />
+    </div>
+  )
 
   const renderFooter = () =>
     isMobile ? (
@@ -59,6 +114,20 @@ const Suppliers = () => {
       <Tr key={transaction.id}>
         <Td>{transaction.transactionDate}</Td>
         <Td>{transaction.value} RSD</Td>
+        <Td>
+          <Button
+            className="ml-3"
+            onClick={() => {
+              setCurrentTransaction(transaction)
+              setShowDeleteTransactionModal(true)
+            }}
+          >
+            <span
+              style={{ fontSize: '1.7rem', color: 'red' }}
+              className="pi pi-trash"
+            />
+          </Button>
+        </Td>
       </Tr>
     ))
 
@@ -95,7 +164,7 @@ const Suppliers = () => {
             >
               <span style={{ fontSize: '1.7rem' }} className="pi pi-book" />
             </Button>
-            <Button
+            {/* <Button
               className="ml-4"
               onClick={() => {
                 setCurrentBillNumber(bill.billNumber)
@@ -104,7 +173,7 @@ const Suppliers = () => {
               }}
             >
               <span style={{ fontSize: '1.7rem' }} className="pi pi-pencil" />
-            </Button>
+            </Button> */}
             <Button
               className="ml-3"
               onClick={() => {
@@ -113,7 +182,23 @@ const Suppliers = () => {
                 setShowAddTransactionModal(true)
               }}
             >
-              <span style={{ fontSize: '1.7rem' }} className="pi pi-plus" />
+              <span
+                style={{ fontSize: '1.7rem', color: 'green' }}
+                className="pi pi-plus"
+              />
+            </Button>
+            <Button
+              className="ml-3"
+              onClick={() => {
+                setCurrentBillNumber(bill.billNumber)
+                setCurrentBillID(bill.id)
+                setShowDeleteBillModal(true)
+              }}
+            >
+              <span
+                style={{ fontSize: '1.7rem', color: 'red' }}
+                className="pi pi-trash"
+              />
             </Button>
           </Td>
         </Tr>
@@ -125,16 +210,46 @@ const Suppliers = () => {
       <div className={styles.buttonWrapper}>
         <Button
           label="Dodaj novi račun"
-          className="btn-purple-outline"
-          onClick={() => history.push(dashboardPath.addSupplier)}
+          className="btn btn-light"
+          onClick={() => {
+            setShowAddBillModal(true)
+          }}
         />
       </div>
+      <Toast ref={toast} position="top-center" />
       <AddTransactionModal
         visible={showAddTransactionModal}
         setVisible={setShowAddTransactionModal}
         billNumber={currentBillNumber}
         billID={currentBillID}
       />
+      <AddBillModal
+        visible={showAddBillModal}
+        setVisible={setShowAddBillModal}
+      />
+      <Dialog
+        header="Obriši račun"
+        visible={showDeleteBillModal}
+        style={{ width: isMobile ? '80vw' : '50vw' }}
+        onHide={() => setShowDeleteBillModal(false)}
+        footer={deleteBillFooter}
+      >
+        <p className="m-0">
+          Da li ste sigurni da želite da obrišete račun sa brojem{' '}
+          {currentBillNumber}?
+        </p>
+      </Dialog>
+      <Dialog
+        header="Obriši transakciju"
+        visible={showDeleteTransactionModal}
+        style={{ width: isMobile ? '80vw' : '50vw' }}
+        onHide={() => setShowDeleteTransactionModal(false)}
+        footer={deleteTransactionFooter}
+      >
+        <p className="m-0">
+          Da li ste sigurni da želite da obrišete transakciju?
+        </p>
+      </Dialog>
       <Dialog
         header={`Transakcije za racun sa brojem ${currentBillNumber}`}
         visible={visible}
@@ -147,6 +262,7 @@ const Suppliers = () => {
               <Tr>
                 <Th>Datum uplate</Th>
                 <Th>Količina</Th>
+                <Th />
               </Tr>
             </Thead>
             <Tbody>{renderTransactions()}</Tbody>

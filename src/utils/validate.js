@@ -29,6 +29,25 @@ export const addTransactionTests = {
   },
 }
 
+export const addBillTest = {
+  billNumber: {
+    test: /\S/,
+    error: 'Broj računa je obavezan',
+  },
+  billDate: {
+    test: /\S/,
+    error: 'Datum je obavezan',
+  },
+  supplierName: {
+    test: /\S/,
+    error: 'Ime dobavljačа je obavezano',
+  },
+  value: {
+    test: /^\d*[1-9]\d*$/,
+    error: 'Iznos mora biti pozitivan broj',
+  },
+}
+
 const validate = (vs, ts) => {
   const errors = {}
   let isError = false
