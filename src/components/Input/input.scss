@@ -7,12 +7,13 @@
 
 .input-label {
   font-weight: bold;
-  font-size: rem(14);
+  font-size: rem(16);
   margin-bottom: rem(4);
 }
 
 .input {
   font-size: rem(16);
+
   &::placeholder {
     text-overflow: ellipsis !important;
     font-size: rem(14);

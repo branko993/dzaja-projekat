@@ -134,6 +134,7 @@ const AddBillModal = ({ visible, setVisible, isClient }) => {
           value={input.name}
           onChange={handleOnChange}
           error={error.name}
+          className="mt-3"
         />
         <Input
           label="Iznos"
