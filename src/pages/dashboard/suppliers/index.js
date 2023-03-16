@@ -115,6 +115,9 @@ const Suppliers = () => {
         <Td>{transaction.transactionDate}</Td>
         <Td>{transaction.value} RSD</Td>
         <Td>
+          {transaction.description ? transaction.description : 'Nema opisa'}
+        </Td>
+        <Td>
           <Button
             className="ml-3"
             onClick={() => {
@@ -262,6 +265,7 @@ const Suppliers = () => {
               <Tr>
                 <Th>Datum uplate</Th>
                 <Th>Količina</Th>
+                <Th>Opis</Th>
                 <Th />
               </Tr>
             </Thead>

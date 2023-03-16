@@ -4,18 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions } from 'slices/clientBills.slice'
 import Clients from '.'
 
-const SupplierWrapper = () => {
+const ClientsWrapper = () => {
   const { me } = useSelector((state) => state.app)
   const dispatch = useDispatch()
 
-  useEffect(async () => {
-    dispatch(actions.fetchClientBills, { userId: me.id })
+  useEffect(() => {
+    dispatch(actions.fetchClientBills({ userId: me.id }))
   }, [])
 
   return <Clients />
 }
 
-SupplierWrapper.propTypes = {}
-SupplierWrapper.defaultProps = {}
+ClientsWrapper.propTypes = {}
+ClientsWrapper.defaultProps = {}
 
-export default SupplierWrapper
+export default ClientsWrapper

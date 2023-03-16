@@ -67,7 +67,7 @@ const MobileDrawerNavigation = ({ isOpen, toggleDrawer }) => {
         Dobavljači
       </NavLink>
       <NavLink
-        to={dashboardPath.customers}
+        to={dashboardPath.clients}
         activeStyle={activeDrawerStyle}
         className={styles.navItem}
       >

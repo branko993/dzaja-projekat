@@ -185,7 +185,7 @@ const fetchSupplierBills =
     })
 
 const addTransaction =
-  ({ billID, transactionDate, value }) =>
+  ({ billID, transactionDate, value, description }) =>
   (dispatch) =>
     new Promise(async (resolve, reject) => {
       try {
@@ -200,6 +200,7 @@ const addTransaction =
             transactionDate,
             creationDate: new Date(),
             value: Number(value),
+            description,
           })
         const transaction = await firestore
           .collection('transactions')

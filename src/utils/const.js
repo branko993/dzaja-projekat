@@ -12,5 +12,5 @@ export const dashboardPath = {
   suppliers: '/dashboard/suppliers',
   addSupplier: '/dashboard/suppliers/add',
   editSupplier: '/dashboard/suppliers/:id/edit',
-  customers: '/dashboard/customers',
+  clients: '/dashboard/clients',
 }

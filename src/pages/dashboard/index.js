@@ -8,10 +8,10 @@ import { images } from 'theme'
 import Button from 'components/Button'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
-import Clients from './clients'
 import MobileDrawerNavigation from './drawer'
 import WebDrawer from './webDrawer'
 import SupplierWrapper from './suppliers/supplierWrapper'
+import ClientsWrapper from './clients/clientsWrapper'
 
 const Dashboard = () => {
   const { me } = useSelector((state) => state.app)
@@ -74,8 +74,8 @@ const Dashboard = () => {
           <Route path={dashboardPath.suppliers}>
             <SupplierWrapper />
           </Route>
-          <Route path={dashboardPath.customers}>
-            <Clients />
+          <Route path={dashboardPath.clients}>
+            <ClientsWrapper />
           </Route>
           <Redirect
             to={dashboardPath.greeting}

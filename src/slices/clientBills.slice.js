@@ -130,13 +130,13 @@ const fetchClientBills =
     new Promise(async (resolve, reject) => {
       try {
         const bills = []
-        const clientBillsnapshot = await firestore
+        const clientBillSnapshot = await firestore
           .collection('clientBill')
           .where('userId', '==', userId)
           .orderBy('creationDate', 'desc')
           .get()
 
-        await clientBillsnapshot.docs.reduce(async (referencePoint, doc) => {
+        await clientBillSnapshot.docs.reduce(async (referencePoint, doc) => {
           // Check for execution status of previous iteration, i.e. wait for it to get finished
           await referencePoint
           const document = doc.data()
@@ -185,7 +185,7 @@ const fetchClientBills =
     })
 
 const addTransaction =
-  ({ billID, transactionDate, value }) =>
+  ({ billID, transactionDate, value, description }) =>
   (dispatch) =>
     new Promise(async (resolve, reject) => {
       try {
@@ -200,6 +200,7 @@ const addTransaction =
             transactionDate,
             creationDate: new Date(),
             value: Number(value),
+            description,
           })
         const transaction = await firestore
           .collection('transactions')

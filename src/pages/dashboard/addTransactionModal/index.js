@@ -11,9 +11,16 @@ import Input from 'components/Input'
 import validate, { addTransactionTests } from 'utils/validate'
 import ErrorBox from 'components/ErrorBox'
 import { actions } from 'slices/bills.slice'
+import { actions as clientActions } from 'slices/clientBills.slice'
 import { showSuccess } from 'utils/toast.helper'
 
-const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
+const AddTransactionModal = ({
+  visible,
+  setVisible,
+  billNumber,
+  billID,
+  isClient,
+}) => {
   const dispatch = useDispatch()
   const toast = useRef(null)
 
@@ -59,7 +66,11 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
     if (result.isError) return
 
     try {
-      await dispatch(actions.addTransaction({ ...input, billID }))
+      if (isClient) {
+        await dispatch(clientActions.addTransaction({ ...input, billID }))
+      } else {
+        await dispatch(actions.addTransaction({ ...input, billID }))
+      }
       closeDialog()
       showSuccess(toast, 'Transakcija je uspesno dodata!')
       setResError('')
@@ -116,6 +127,14 @@ const AddTransactionModal = ({ visible, setVisible, billNumber, billID }) => {
           onChange={handleOnChange}
           error={error.value}
         />
+        <Input
+          label="Opis"
+          name="description"
+          placeholder="Unesite opis transakcije"
+          value={input.description}
+          onChange={handleOnChange}
+          error={error.description}
+        />
         {resErr && <ErrorBox>{resErr}</ErrorBox>}
       </Dialog>
     </>
@@ -127,10 +146,12 @@ AddTransactionModal.propTypes = {
   setVisible: PropTypes.func.isRequired,
   billNumber: PropTypes.string,
   billID: PropTypes.string,
+  isClient: PropTypes.bool,
 }
 AddTransactionModal.defaultProps = {
   billNumber: '',
   billID: '',
+  isClient: false,
 }
 
 export default AddTransactionModal
