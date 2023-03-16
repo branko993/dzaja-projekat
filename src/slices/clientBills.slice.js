@@ -7,13 +7,13 @@ import { v4 as uuidv4 } from 'uuid'
 // Helpers
 // ------------------------------------
 
-const calculateStatistics = (supplierBills) => {
+const calculateStatistics = (clientBills) => {
   const results = {
     paid: 0,
     leftToPay: 0,
     sumOfValues: 0,
   }
-  supplierBills.forEach((bill) => {
+  clientBills.forEach((bill) => {
     results.paid += bill.paid
     results.leftToPay += bill.leftToPay
     results.sumOfValues += bill.value
@@ -26,7 +26,7 @@ const calculateStatistics = (supplierBills) => {
 // ------------------------------------
 
 const initialState = {
-  supplierBills: [],
+  clientBills: [],
   statistics: {
     paid: 0,
     leftToPay: 0,
@@ -42,35 +42,35 @@ const slice = createSlice({
   name: 'bills',
   initialState,
   reducers: {
-    setSupplierBills: (state, action) => ({
+    setClientBills: (state, action) => ({
       ...state,
       statistics: action.payload.statistics,
-      supplierBills: action.payload.supplierBills,
+      clientBills: action.payload.clientBills,
     }),
-    updateSupplierBills: (state, action) => {
-      const newBills = [action.payload.bill].concat(state.supplierBills)
+    updateClientBills: (state, action) => {
+      const newBills = [action.payload.bill].concat(state.clientBills)
       const statistics = calculateStatistics(newBills)
       return {
         ...state,
         statistics,
-        supplierBills: newBills,
+        clientBills: newBills,
       }
     },
-    removeSupplierBill: (state, action) => {
-      const newBills = state.supplierBills.filter(
+    removeClientBill: (state, action) => {
+      const newBills = state.clientBills.filter(
         (bill) => bill.id !== action.payload.id,
       )
       const statistics = calculateStatistics(newBills)
       return {
         ...state,
         statistics,
-        supplierBills: newBills,
+        clientBills: newBills,
       }
     },
     updateTransaction: (state, action) => {
       const { transaction } = action.payload
 
-      const newBills = state.supplierBills.map((bill) => {
+      const newBills = state.clientBills.map((bill) => {
         if (bill.id === transaction.billID) {
           const paid = transaction.value + bill.paid
           const leftToPay = bill.leftToPay - transaction.value
@@ -88,13 +88,13 @@ const slice = createSlice({
       return {
         ...state,
         statistics,
-        supplierBills: newBills,
+        clientBills: newBills,
       }
     },
     removeTransaction: (state, action) => {
       const { transaction } = action.payload
 
-      const newBills = state.supplierBills.map((bill) => {
+      const newBills = state.clientBills.map((bill) => {
         if (bill.id === transaction.billID) {
           const paid = bill.paid - transaction.value
           const leftToPay = bill.leftToPay + transaction.value
@@ -114,7 +114,7 @@ const slice = createSlice({
       return {
         ...state,
         statistics,
-        supplierBills: newBills,
+        clientBills: newBills,
       }
     },
   },
@@ -124,19 +124,19 @@ const slice = createSlice({
 // Actions
 // -----------------------------------
 
-const fetchSupplierBills =
+const fetchClientBills =
   ({ userId }) =>
   (dispatch) =>
     new Promise(async (resolve, reject) => {
       try {
         const bills = []
-        const supplierBillSnapshot = await firestore
-          .collection('supplierBill')
+        const clientBillsnapshot = await firestore
+          .collection('clientBill')
           .where('userId', '==', userId)
           .orderBy('creationDate', 'desc')
           .get()
 
-        await supplierBillSnapshot.docs.reduce(async (referencePoint, doc) => {
+        await clientBillsnapshot.docs.reduce(async (referencePoint, doc) => {
           // Check for execution status of previous iteration, i.e. wait for it to get finished
           await referencePoint
           const document = doc.data()
@@ -175,7 +175,7 @@ const fetchSupplierBills =
         }, Promise.resolve())
         const statistics = calculateStatistics(bills)
         dispatch(
-          slice.actions.setSupplierBills({ supplierBills: bills, statistics }),
+          slice.actions.setClientBills({ clientBills: bills, statistics }),
         )
 
         resolve()
@@ -231,7 +231,7 @@ const addBill =
         const id = uuidv4()
         // store user info in firestore
         await firestore
-          .collection('supplierBill')
+          .collection('clientBill')
           .doc(id)
           .set({
             id,
@@ -242,7 +242,7 @@ const addBill =
             value: Number(value),
             userId,
           })
-        const bill = await firestore.collection('supplierBill').doc(id).get()
+        const bill = await firestore.collection('clientBill').doc(id).get()
         const billToAdd = bill.data()
         billToAdd.creationDate = moment(billToAdd.creationDate.toDate()).format(
           'DD/MM/YYYY',
@@ -253,7 +253,7 @@ const addBill =
         billToAdd.paid = 0
         billToAdd.leftToPay = Number(value)
         billToAdd.transactions = []
-        dispatch(slice.actions.updateSupplierBills({ bill: billToAdd }))
+        dispatch(slice.actions.updateClientBills({ bill: billToAdd }))
 
         resolve(billToAdd)
       } catch (err) {
@@ -268,7 +268,7 @@ const deleteBill =
       try {
         // store user info in firestore
         const querySnapshot = await firestore
-          .collection('supplierBill')
+          .collection('clientBill')
           .where('id', '==', id)
           .get()
         const transactionsSnapshot = await firestore
@@ -279,7 +279,7 @@ const deleteBill =
           transaction.ref.delete()
         })
         querySnapshot.docs[0].ref.delete()
-        dispatch(slice.actions.removeSupplierBill({ id }))
+        dispatch(slice.actions.removeClientBill({ id }))
 
         resolve()
       } catch (err) {
@@ -312,7 +312,7 @@ const deleteTransaction =
 
 export const actions = {
   ...slice.actions,
-  fetchSupplierBills,
+  fetchClientBills,
   addTransaction,
   addBill,
   deleteBill,

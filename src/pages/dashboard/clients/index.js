@@ -10,17 +10,17 @@ import Button from 'components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { showSuccess } from 'utils/toast.helper'
-import { actions } from 'slices/bills.slice'
-import styles from './suppliers.module.scss'
+import { actions } from 'slices/clientBills.slice'
+import styles from './clients.module.scss'
 import AddTransactionModal from '../addTransactionModal'
 import AddBillModal from '../addBillModal'
 
-const Suppliers = () => {
+const Clients = () => {
   // const history = useHistory()
   const toast = useRef(null)
   const dispatch = useDispatch()
 
-  const { supplierBills, statistics } = useSelector((state) => state.bills)
+  const { clientBills, statistics } = useSelector((state) => state.clientBills)
 
   const [currentTransactions, setCurrentTransactions] = useState([])
   const [currentBillNumber, setCurrentBillNumber] = useState('')
@@ -132,7 +132,7 @@ const Suppliers = () => {
     ))
 
   const renderTableBody = () =>
-    supplierBills.map((bill) => (
+    clientBills.map((bill) => (
       <React.Fragment key={bill.id}>
         <Tr>
           <Td>{bill.billNumber}</Td>
@@ -226,6 +226,7 @@ const Suppliers = () => {
       <AddBillModal
         visible={showAddBillModal}
         setVisible={setShowAddBillModal}
+        isClient
       />
       <Dialog
         header="Obriši račun"
@@ -276,7 +277,7 @@ const Suppliers = () => {
           <Tr>
             <Th>Broj računa</Th>
             <Th>Datum</Th>
-            <Th>Ime dobavljača</Th>
+            <Th>Ime klijenta</Th>
             <Th>Uplaćeno</Th>
             <Th>Preostalo</Th>
             <Th>Ukupan iznos</Th>
@@ -291,8 +292,8 @@ const Suppliers = () => {
   )
 }
 
-Suppliers.propTypes = {}
+Clients.propTypes = {}
 
-Suppliers.defaultProps = {}
+Clients.defaultProps = {}
 
-export default Suppliers
+export default Clients

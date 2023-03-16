@@ -38,9 +38,9 @@ export const addBillTest = {
     test: /\S/,
     error: 'Datum je obavezan',
   },
-  supplierName: {
+  name: {
     test: /\S/,
-    error: 'Ime dobavljačа je obavezano',
+    error: 'Ovo polje je obavezano',
   },
   value: {
     test: /^\d*[1-9]\d*$/,

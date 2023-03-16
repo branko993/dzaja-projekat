@@ -11,9 +11,11 @@ import Input from 'components/Input'
 import validate, { addBillTest } from 'utils/validate'
 import ErrorBox from 'components/ErrorBox'
 import { actions } from 'slices/bills.slice'
+import { actions as clientActions } from 'slices/clientBills.slice'
+
 import { showSuccess } from 'utils/toast.helper'
 
-const AddBillModal = ({ visible, setVisible }) => {
+const AddBillModal = ({ visible, setVisible, isClient }) => {
   const dispatch = useDispatch()
   const { me } = useSelector((state) => state.app)
   const toast = useRef(null)
@@ -24,7 +26,7 @@ const AddBillModal = ({ visible, setVisible }) => {
   const [input, setInput] = useState({
     billNumber: '',
     billDate: '',
-    supplierName: '',
+    name: '',
     value: undefined,
   })
   const [error, setError] = useState({})
@@ -43,7 +45,7 @@ const AddBillModal = ({ visible, setVisible }) => {
     setInput({
       billNumber: '',
       billDate: '',
-      supplierName: '',
+      name: '',
       value: undefined,
     })
     setResError('')
@@ -65,7 +67,11 @@ const AddBillModal = ({ visible, setVisible }) => {
     if (result.isError) return
 
     try {
-      await dispatch(actions.addBill({ ...input, userId: me.id }))
+      if (!isClient) {
+        await dispatch(actions.addBill({ ...input, userId: me.id }))
+      } else {
+        await dispatch(clientActions.addBill({ ...input, userId: me.id }))
+      }
       closeDialog()
       showSuccess(toast, 'Račun je uspesno dodat!')
       setResError('')
@@ -122,12 +128,12 @@ const AddBillModal = ({ visible, setVisible }) => {
           )}
         </div>
         <Input
-          label="Ime dobavljača"
-          name="supplierName"
-          placeholder="Unesi ime dobavljača"
-          value={input.supplierName}
+          label={isClient ? 'Ime klijenta' : 'Ime dobavljača'}
+          name="name"
+          placeholder={isClient ? 'Unesi ime klijenta' : 'Unesi ime dobavljača'}
+          value={input.name}
           onChange={handleOnChange}
-          error={error.supplierName}
+          error={error.name}
         />
         <Input
           label="Iznos"
@@ -147,7 +153,10 @@ const AddBillModal = ({ visible, setVisible }) => {
 AddBillModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   setVisible: PropTypes.func.isRequired,
+  isClient: PropTypes.bool,
 }
-AddBillModal.defaultProps = {}
+AddBillModal.defaultProps = {
+  isClient: false,
+}
 
 export default AddBillModal

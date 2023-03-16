@@ -8,7 +8,7 @@ import { images } from 'theme'
 import Button from 'components/Button'
 import styles from './dashboard.module.scss'
 import Greeting from './greeting'
-import Customers from './customers'
+import Clients from './clients'
 import MobileDrawerNavigation from './drawer'
 import WebDrawer from './webDrawer'
 import SupplierWrapper from './suppliers/supplierWrapper'
@@ -75,7 +75,7 @@ const Dashboard = () => {
             <SupplierWrapper />
           </Route>
           <Route path={dashboardPath.customers}>
-            <Customers />
+            <Clients />
           </Route>
           <Redirect
             to={dashboardPath.greeting}
