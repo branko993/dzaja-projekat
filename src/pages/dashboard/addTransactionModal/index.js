@@ -59,7 +59,7 @@ const AddTransactionModal = ({
     const result = validate(input, addTransactionTests)
     const currentDate = new Date()
     if (
-      !result.errors.billDate &&
+      !result.errors.transactionDate &&
       currentDate.getTime() < input.transactionDate.getTime()
     ) {
       result.errors.transactionDate = 'Datum ne može biti u budućnosti'
