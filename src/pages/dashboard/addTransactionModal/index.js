@@ -33,6 +33,7 @@ const AddTransactionModal = ({
   })
   const [error, setError] = useState({})
   const [resErr, setResError] = useState('')
+  const [disableButton, setDisableButton] = useState(false)
 
   // ------------------------------------
   // Handlers
@@ -54,6 +55,7 @@ const AddTransactionModal = ({
   }
 
   const handleSubmit = async () => {
+    setDisableButton(true)
     const result = validate(input, addTransactionTests)
     const currentDate = new Date()
     if (
@@ -77,15 +79,17 @@ const AddTransactionModal = ({
     } catch (err) {
       setResError(err.message)
     }
+    setDisableButton(false)
   }
 
   const footerContent = (
     <div>
       <Button
         label="Dodaj"
-        icon="pi pi-plus"
+        icon={`${disableButton ? 'pi pi-spin pi-spinner' : 'pi pi-plus'}`}
         severity="info"
         iconPos="right"
+        disabled={disableButton}
         onClick={() => handleSubmit()}
       />
     </div>

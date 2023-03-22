@@ -31,6 +31,7 @@ const AddBillModal = ({ visible, setVisible, isClient }) => {
   })
   const [error, setError] = useState({})
   const [resErr, setResError] = useState('')
+  const [disableButton, setDisableButton] = useState(false)
 
   // ------------------------------------
   // Handlers
@@ -54,6 +55,7 @@ const AddBillModal = ({ visible, setVisible, isClient }) => {
   }
 
   const handleSubmit = async () => {
+    setDisableButton(true)
     const result = validate(input, addBillTest)
     const currentDate = new Date()
 
@@ -78,15 +80,17 @@ const AddBillModal = ({ visible, setVisible, isClient }) => {
     } catch (err) {
       setResError(err.message)
     }
+    setDisableButton(false)
   }
 
   const footerContent = (
     <div>
       <Button
         label="Dodaj"
-        icon="pi pi-plus"
+        icon={`${disableButton ? 'pi pi-spin pi-spinner' : 'pi pi-plus'}`}
         severity="info"
         iconPos="right"
+        disabled={disableButton}
         onClick={() => handleSubmit()}
       />
     </div>
