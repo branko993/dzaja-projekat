@@ -83,14 +83,14 @@ const Suppliers = () => {
       <Tbody>
         <Tr>
           <Th style={{ textAlign: 'left' }}>Total:</Th>
+          <Th style={{ textAlign: 'right' }}>
+            Vrednost računa: {statistics.sumOfValues}
+          </Th>
           <Th style={{ textAlign: 'right', color: 'green' }}>
             Uplaćeno: {statistics.paid}
           </Th>
           <Th style={{ textAlign: 'right', color: 'red' }}>
             Preostalo: {statistics.leftToPay}
-          </Th>
-          <Th style={{ textAlign: 'right' }}>
-            Ukupan iznos: {statistics.sumOfValues}
           </Th>
         </Tr>
       </Tbody>
@@ -100,9 +100,9 @@ const Suppliers = () => {
           <Th />
           <Th />
           <Th style={{ textAlign: 'left' }}>Total:</Th>
+          <Th>{statistics.sumOfValues} RSD</Th>
           <Th style={{ color: 'green' }}>{statistics.paid} RSD</Th>
           <Th style={{ color: 'red' }}>{statistics.leftToPay} RSD</Th>
-          <Th>{statistics.sumOfValues} RSD</Th>
           <Th />
           <Th />
         </Tr>
@@ -141,9 +141,9 @@ const Suppliers = () => {
           <Td>{bill.billNumber}</Td>
           <Td>{bill.billDate}</Td>
           <Td>{bill.name}</Td>
+          <Td>{bill.value} RSD</Td>
           <Td style={{ color: 'green' }}>{bill.paid} RSD</Td>
           <Td style={{ color: 'red' }}>{bill.leftToPay} RSD</Td>
-          <Td>{bill.value} RSD</Td>
           <Td>
             {bill.value > bill.paid ? (
               <span
@@ -281,9 +281,9 @@ const Suppliers = () => {
             <Th>Broj računa</Th>
             <Th>Datum</Th>
             <Th>Ime dobavljača</Th>
+            <Th>Vrednost računa</Th>
             <Th>Uplaćeno</Th>
             <Th>Preostalo</Th>
-            <Th>Ukupan iznos</Th>
             <Th>Plaćen?</Th>
             <Th />
           </Tr>

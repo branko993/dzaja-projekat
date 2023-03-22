@@ -2,36 +2,21 @@ import { createSlice } from '@reduxjs/toolkit'
 import moment from 'moment'
 import { firestore } from 'utils/firebase'
 import { v4 as uuidv4 } from 'uuid'
-
-// ------------------------------------
-// Helpers
-// ------------------------------------
-
-const calculateStatistics = (clientBills) => {
-  const results = {
-    paid: 0,
-    leftToPay: 0,
-    sumOfValues: 0,
-  }
-  clientBills.forEach((bill) => {
-    results.paid += bill.paid
-    results.leftToPay += bill.leftToPay
-    results.sumOfValues += bill.value
-  })
-  return results
-}
+import { calculateStatistics } from './helpers'
 
 // ------------------------------------
 // State
 // ------------------------------------
 
 const initialState = {
+  originalClientBills: [],
   clientBills: [],
   statistics: {
     paid: 0,
     leftToPay: 0,
     sumOfValues: 0,
   },
+  searchTerm: '',
 }
 
 // ------------------------------------
@@ -174,11 +159,11 @@ const fetchClientBills =
           bills.push(document)
         }, Promise.resolve())
         const statistics = calculateStatistics(bills)
-        dispatch(
+        await dispatch(
           slice.actions.setClientBills({ clientBills: bills, statistics }),
         )
 
-        resolve()
+        resolve({ bills, statistics })
       } catch (err) {
         reject(err)
       }

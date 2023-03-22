@@ -5,6 +5,17 @@
   justify-content: flex-end;
 }
 
+.filterWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterMobileWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+
 .table {
   color: white;
   border-radius: 2px;
