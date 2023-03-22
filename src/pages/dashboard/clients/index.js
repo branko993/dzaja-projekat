@@ -202,6 +202,7 @@ const Clients = ({ clientBills, statistics }) => {
         setVisible={setShowAddTransactionModal}
         billNumber={currentBillNumber}
         billID={currentBillID}
+        isClient
       />
       <Dialog
         header="Obriši račun"

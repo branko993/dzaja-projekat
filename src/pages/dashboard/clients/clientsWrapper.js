@@ -7,6 +7,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise'
 import Button from 'components/Button'
 import moment from 'moment'
 import { Calendar } from 'primereact/calendar'
+import { ProgressSpinner } from 'primereact/progressspinner'
 
 import { calculateStatistics } from 'slices/helpers'
 import { actions } from 'slices/clientBills.slice'
@@ -16,7 +17,7 @@ import styles from './clients.module.scss'
 
 const ClientsWrapper = () => {
   const { me } = useSelector((state) => state.app)
-  const { clientBills } = useSelector((state) => state.clientBills)
+  const { clientBills, isLoading } = useSelector((state) => state.clientBills)
   const [filteredBills, setFilteredBills] = useState([])
   const [filteredStatistics, setFilteredStatistics] = useState({
     paid: 0,
@@ -54,7 +55,9 @@ const ClientsWrapper = () => {
   }, 750)
 
   useEffect(() => {
-    dispatch(actions.fetchClientBills({ userId: me.id }))
+    if (clientBills.length === 0) {
+      dispatch(actions.fetchClientBills({ userId: me.id }))
+    }
   }, [])
 
   useEffect(() => {
@@ -87,6 +90,7 @@ const ClientsWrapper = () => {
             <i className="pi pi-search" />
             <InputText
               autoResize={false}
+              style={{ width: '100%' }}
               placeholder="Pretraga"
               onChange={({ target }) => {
                 filterBillsDebounced(target.value)
@@ -163,8 +167,17 @@ const ClientsWrapper = () => {
       </div>
     )
 
+  const renderProgressBar = () =>
+    isLoading && (
+      <>
+        <div className={styles.backdrop} />
+        <ProgressSpinner className={styles.progressSpinner} />
+      </>
+    )
+
   return (
     <>
+      {renderProgressBar()}
       <AddBillModal
         visible={showAddBillModal}
         setVisible={setShowAddBillModal}

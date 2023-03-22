@@ -7,20 +7,17 @@ import { Dialog } from 'primereact/dialog'
 import { Toast } from 'primereact/toast'
 import Button from 'components/Button'
 // import { dashboardPath } from 'utils/const'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { showSuccess } from 'utils/toast.helper'
 import { actions } from 'slices/bills.slice'
 import styles from './suppliers.module.scss'
 import AddTransactionModal from '../addTransactionModal'
-import AddBillModal from '../addBillModal'
 
-const Suppliers = () => {
+const Suppliers = ({ supplierBills, statistics }) => {
   // const history = useHistory()
   const toast = useRef(null)
   const dispatch = useDispatch()
-
-  const { supplierBills, statistics } = useSelector((state) => state.bills)
 
   const [currentTransactions, setCurrentTransactions] = useState([])
   const [currentBillNumber, setCurrentBillNumber] = useState('')
@@ -30,7 +27,6 @@ const Suppliers = () => {
 
   const [visible, setVisible] = useState(false)
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
-  const [showAddBillModal, setShowAddBillModal] = useState(false)
   const [showDeleteBillModal, setShowDeleteBillModal] = useState(false)
   const [showDeleteTransactionModal, setShowDeleteTransactionModal] =
     useState(false)
@@ -157,7 +153,7 @@ const Suppliers = () => {
               />
             )}
           </Td>
-          <Td className={!isMobile && styles.actionsWrapper}>
+          <Td className={!isMobile ? styles.actionsWrapper : ''}>
             <Button
               onClick={() => {
                 setCurrentBillNumber(bill.billNumber)
@@ -167,16 +163,6 @@ const Suppliers = () => {
             >
               <span style={{ fontSize: '1.7rem' }} className="pi pi-book" />
             </Button>
-            {/* <Button
-              className="ml-4"
-              onClick={() => {
-                setCurrentBillNumber(bill.billNumber)
-                setCurrentTransactions(bill.transactions)
-                setVisible(true)
-              }}
-            >
-              <span style={{ fontSize: '1.7rem' }} className="pi pi-pencil" />
-            </Button> */}
             <Button
               className="ml-3"
               onClick={() => {
@@ -210,25 +196,12 @@ const Suppliers = () => {
 
   return (
     <>
-      <div className={styles.buttonWrapper}>
-        <Button
-          label="Dodaj novi račun"
-          className="btn btn-light"
-          onClick={() => {
-            setShowAddBillModal(true)
-          }}
-        />
-      </div>
       <Toast ref={toast} position="top-center" />
       <AddTransactionModal
         visible={showAddTransactionModal}
         setVisible={setShowAddTransactionModal}
         billNumber={currentBillNumber}
         billID={currentBillID}
-      />
-      <AddBillModal
-        visible={showAddBillModal}
-        setVisible={setShowAddBillModal}
       />
       <Dialog
         header="Obriši račun"

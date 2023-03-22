@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import moment from 'moment'
 import { firestore } from 'utils/firebase'
+import store from 'utils/store'
 import { v4 as uuidv4 } from 'uuid'
 import { calculateStatistics } from './helpers'
 
@@ -16,7 +17,7 @@ const initialState = {
     leftToPay: 0,
     sumOfValues: 0,
   },
-  searchTerm: '',
+  isLoading: false,
 }
 
 // ------------------------------------
@@ -31,6 +32,10 @@ const slice = createSlice({
       ...state,
       statistics: action.payload.statistics,
       clientBills: action.payload.clientBills,
+    }),
+    setIsLoading: (state, action) => ({
+      ...state,
+      isLoading: action.payload.isLoading,
     }),
     updateClientBills: (state, action) => {
       const newBills = [action.payload.bill].concat(state.clientBills)
@@ -110,15 +115,18 @@ const slice = createSlice({
 // -----------------------------------
 
 const fetchClientBills =
-  ({ userId }) =>
+  ({ userId, showLoader = true }) =>
   (dispatch) =>
     new Promise(async (resolve, reject) => {
       try {
+        if (showLoader) {
+          dispatch(slice.actions.setIsLoading({ isLoading: true }))
+        }
         const bills = []
         const clientBillSnapshot = await firestore
           .collection('clientBill')
           .where('userId', '==', userId)
-          .orderBy('creationDate', 'desc')
+          .orderBy('billDate', 'desc')
           .get()
 
         await clientBillSnapshot.docs.reduce(async (referencePoint, doc) => {
@@ -129,7 +137,7 @@ const fetchClientBills =
           const supplierTransactionsSnapshot = await firestore
             .collection('transactions')
             .where('billID', '==', document.id)
-            .orderBy('creationDate', 'desc')
+            .orderBy('transactionDate', 'desc')
             .get()
 
           document.transactions = []
@@ -162,6 +170,9 @@ const fetchClientBills =
         await dispatch(
           slice.actions.setClientBills({ clientBills: bills, statistics }),
         )
+        if (showLoader) {
+          dispatch(slice.actions.setIsLoading({ isLoading: false }))
+        }
 
         resolve({ bills, statistics })
       } catch (err) {
@@ -170,7 +181,7 @@ const fetchClientBills =
     })
 
 const addTransaction =
-  ({ billID, transactionDate, value, description }) =>
+  ({ billID, transactionDate, value, description = '' }) =>
   (dispatch) =>
     new Promise(async (resolve, reject) => {
       try {
@@ -199,9 +210,10 @@ const addTransaction =
           transactionToAdd.transactionDate.toDate(),
         ).format('DD/MM/YYYY')
 
-        dispatch(
-          slice.actions.updateTransaction({ transaction: transactionToAdd }),
-        )
+        const reduxStore = store.getState()
+        const { me } = reduxStore.app
+
+        await dispatch(fetchClientBills({ userId: me.id, showLoader: false }))
 
         resolve(transactionToAdd)
       } catch (err) {
@@ -239,7 +251,10 @@ const addBill =
         billToAdd.paid = 0
         billToAdd.leftToPay = Number(value)
         billToAdd.transactions = []
-        dispatch(slice.actions.updateClientBills({ bill: billToAdd }))
+        const reduxStore = store.getState()
+        const { me } = reduxStore.app
+
+        await dispatch(fetchClientBills({ userId: me.id, showLoader: false }))
 
         resolve(billToAdd)
       } catch (err) {
