@@ -65,7 +65,10 @@ const AddTransactionModal = ({
       result.errors.transactionDate = 'Datum ne može biti u budućnosti'
     }
     setError(result.errors)
-    if (result.isError) return
+    if (result.isError) {
+      setDisableButton(false)
+      return
+    }
 
     try {
       if (isClient) {
